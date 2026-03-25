@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="main-card p-5 text-center col-md-6 shadow-sm border-0">
+        <div class="spinner-border text-primary mb-4" role="status" style="width: 4rem; height: 4rem; border-width: 0.4em;">
+            <span class="visually-hidden">Жүктелуде...</span>
+        </div>
+        
+        <h2 class="fw-bold mb-3">Файлды өңдеудеміз</h2>
+        <p class="text-secondary mb-4 small">Сіздің файлыңыз қолжетімді форматқа айналдырылуда. Сәл күте тұрыңыз...</p>
+        
+        <div class="progress mb-4" style="height: 10px; border-radius: 10px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 70%"></div>
+        </div>
+        
+        <div class="d-flex justify-content-between text-muted small mb-4">
+            <span><i class="bi bi-file-earmark-text me-1"></i> Құжатты өңдеу...</span>
+            <span class="fw-bold text-primary">70%</span>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-6">
+                <div class="p-3 bg-light rounded-3 text-start small">
+                    <i class="bi bi-eye text-primary me-2"></i> <b>Экрандық оқуға дайын</b>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="p-3 bg-light rounded-3 text-start small">
+                    <i class="bi bi-lightning-charge text-primary me-2"></i> <b>OCR Оптимизация</b>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-outline-danger w-100 mt-5 py-2 fw-bold" onclick="window.history.back()">
+            <i class="bi bi-x-circle me-2"></i> Тоқтату
+        </button>
+    </div>
+</div>
+{% endblock %}

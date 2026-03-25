@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5 mt-4">
+        <div class="col-lg-7">
+            <h6 class="text-primary fw-bold text-uppercase tracking-wider mb-3" style="letter-spacing: 1px;">Біздің миссиямыз</h6>
+            <h1 class="display-4 fw-bold mb-4" style="color: #0f172a;">Платформа туралы</h1>
+            <div style="width: 80px; height: 4px; background-color: var(--brand-blue); border-radius: 2px;" class="mb-4"></div>
+            <p class="lead text-secondary lh-lg">
+                Біздің мақсатымыз — инклюзивті технологиялар арқылы көру және есту қабілеті бұзылған студенттерге сапалы білім алуға мүмкіндік беру. Біз білім алуда ешқандай кедергі болмауы тиіс деп есептейміз және әрбір студенттің әлеуетін ашуға жағдай жасаймыз.
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+            <div class="main-card p-4 p-md-5 border-0 shadow-sm" style="background-color: #ffffff;">
+                <p class="text-secondary mb-4">
+                    Біз білім берудегі кедергілерді жоюды басты бағыт етіп алдық. Көру қабілеті нашар жандарға арналған арнайы құралдар мен ресурстар арқылы әрбір студенттің оқу материалдарына тең қолжетімділігін қамтамасыз етеміз.
+                </p>
+                <p class="text-secondary mb-5">
+                    Жасанды интеллект пен адамға бағытталған дизайнның озық жетістіктерін пайдалана отырып, біз оқу процесін барлығы үшін ыңғайлы әрі интуитивті ететін орта қалыптастырамыз.
+                </p>
+
+                <h5 class="fw-bold mb-4"><i class="bi bi-magic me-2 text-primary"></i> Қолжетімді форматтар:</h5>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 bg-light">
+                            <i class="bi bi-headphones text-primary fs-4 mb-2 d-block"></i>
+                            <h6 class="fw-bold mb-1">Аудио дәрістер</h6>
+                            <p class="small text-muted mb-0">Көру мүмкіндігі шектеулі жандар үшін.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 bg-light">
+                            <i class="bi bi-file-earmark-text text-primary fs-4 mb-2 d-block"></i>
+                            <h6 class="fw-bold mb-1">Мәтіндік нұсқа</h6>
+                            <p class="small text-muted mb-0">Видеолардың толық транскрипциясы.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 bg-light">
+                            <i class="bi bi-subtitles text-primary fs-4 mb-2 d-block"></i>
+                            <h6 class="fw-bold mb-1">Дәл субтитрлер</h6>
+                            <p class="small text-muted mb-0">Есту қабілеті нашар студенттерге.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 bg-light">
+                            <i class="bi bi-fonts text-primary fs-4 mb-2 d-block"></i>
+                            <h6 class="fw-bold mb-1">Ірі қаріптер</h6>
+                            <p class="small text-muted mb-0">Нашар көретіндерге арналған режим.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="position-relative">
+                <div class="rounded-4 overflow-hidden shadow-lg mb-4" style="height: 450px;">
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=1000" 
+                         alt="Оқу процесі" class="w-100 h-100 object-fit-cover">
+                </div>
+
+                <div class="main-card p-4 border-0 shadow-lg text-white" style="background-color: var(--brand-blue);">
+                    <div class="d-flex align-items-start">
+                        <i class="bi bi-patch-check-fill fs-1 me-3"></i>
+                        <div>
+                            <h5 class="fw-bold mb-2 text-uppercase" style="font-size: 0.9rem; letter-spacing: 1px;">Қолжетімділік стандарты</h5>
+                            <p class="small mb-0 opacity-90">
+                                Біздің платформа халықаралық WCAG 2.1 AA стандарттарына сәйкес келеді, бұл көмекші технологияларды барынша тиімді пайдалануды қамтамасыз етеді.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

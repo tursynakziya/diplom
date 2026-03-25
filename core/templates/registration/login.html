@@ -1,0 +1,30 @@
+{% extends 'core/index.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <h2 class="text-center fw-bold text-primary mb-4">Жүйеге кіру</h2>
+                
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3">
+                        Кіру 🔓
+                    </button>
+                </form> 
+                <hr class="my-4">
+                <div class="text-center">
+                    <p class="text-muted">Аккаунтыңыз жоқ па?</p>
+                    <a href="{% url 'signup' %}" class="btn btn-outline-secondary rounded-pill px-4">Жаңа аккаунт ашу</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="main-card p-4 mb-5 border-0 shadow-sm" style="background-color: #f0fdf4;">
+        <div class="d-flex align-items-center justify-content-center">
+            <i class="bi bi-check-circle-fill text-success fs-1 me-3"></i>
+            <div class="text-start">
+                <h3 class="fw-bold mb-0">Конвертация аяқталды!</h3>
+                <p class="text-success mb-0">Сіздің файлыңыз сәтті өңделді және пайдалануға дайын.</p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="text-start fw-bold mb-4">Қолжетімді форматтар:</h4>
+    
+    <div class="list-group shadow-sm border-0 rounded-4 overflow-hidden mb-5 text-start">
+        <div class="list-group-item p-4 d-flex align-items-center justify-content-between border-0 border-bottom">
+            <div class="d-flex align-items-center">
+                <div class="p-3 bg-primary bg-opacity-10 rounded-3 me-4 text-primary">
+                    <i class="bi bi-music-note-beamed fs-3"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold mb-0">History_Lecture_04.mp3</h6>
+                    <p class="small text-muted mb-0">Жоғары сапалы аудио • 18.2 MB</p>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary rounded-pill px-4 fw-bold">
+                <i class="bi bi-download me-2"></i> Аудионы жүктеу
+            </a>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'home' %}" class="btn btn-primary py-3 px-5 fw-bold shadow">
+            <i class="bi bi-plus-circle me-2"></i> Тағы файл жүктеу
+        </a>
+        <button class="btn btn-outline-secondary py-3 px-5 fw-bold">
+            <i class="bi bi-share me-2"></i> Бөлісу
+        </button>
+    </div>
+</div>
+{% endblock %}

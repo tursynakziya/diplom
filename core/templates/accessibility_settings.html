@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-5"><i class="bi bi-person-wheelchair text-primary me-2"></i> Қолжетімділік баптаулары</h2>
+    
+    <div class="main-card p-4 mb-4 border-0 shadow-sm">
+        <h5 class="fw-bold mb-4">Мәтін өлшемі</h5>
+        <div class="row text-center g-3">
+            <div class="col-md-4">
+                <button class="btn btn-light w-100 py-4 border">Кіші</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary w-100 py-4 shadow">Қалыпты</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-light w-100 py-4 border">Үлкен</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-card p-4 mb-4 border-0 shadow-sm">
+        <h5 class="fw-bold mb-4">Түс режимі</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center bg-white shadow-sm" style="cursor:pointer;">
+                    <i class="bi bi-sun me-2 text-warning"></i> Ақшыл
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center" style="cursor:pointer;">
+                    <i class="bi bi-moon-stars me-2 text-primary"></i> Қараңғы
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center" style="cursor:pointer;">
+                    <i class="bi bi-circle-half me-2 text-dark"></i> Контрастты
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 mt-5">
+        <button class="btn btn-light px-5 py-3 fw-bold border">Әуелгі қалпына келтіру</button>
+        <button class="btn btn-primary px-5 py-3 fw-bold shadow">Өзгерістерді сақтау</button>
+    </div>
+</div>
+{% endblock %}

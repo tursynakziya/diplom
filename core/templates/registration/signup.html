@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Тіркелу - Accessibility Platform</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 50px; text-align: center; }
+        .form-container { background: white; padding: 40px; border-radius: 10px; display: inline-block; border: 2px solid #000; }
+        input { font-size: 1.2rem; padding: 10px; margin: 10px 0; width: 100%; }
+        button { background-color: #0056b3; color: white; padding: 15px 30px; border: none; font-size: 1.2rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Жүйеге тіркелу</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Тіркелуді аяқтау</button>
+        </form>
+        <p>Аккаунтыңыз бар ма? <a href="{% url 'login' %}">Кіру</a></p>
+    </div>
+</body>
+</html>

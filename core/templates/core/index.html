@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --bg-light: #f8f9fa;
+        }
+        body { background-color: var(--bg-light); font-family: 'Segoe UI', Tahoma, sans-serif; transition: 0.3s; }
+        .navbar { background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px 0; }
+        .main-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: white; padding: 40px; margin-top: 50px; }
+        .btn-convert { background-color: black; color: white; border-radius: 12px; padding: 15px; font-weight: bold; font-size: 1.2rem; transition: 0.3s; width: 100%; border: 2px solid black; }
+        .btn-convert:hover { background-color: white; color: black; }
+        .upload-area { border: 2px dashed var(--primary-blue); border-radius: 15px; padding: 30px; background-color: #f0f7ff; margin: 20px 0; }
+        .user-nav a { text-decoration: none; font-weight: 600; color: #333; margin-left: 15px; }
+        .accessibility-panel { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        /* Қара режим стилі */
+        .dark-mode { background-color: #1a1a1a !important; color: white !important; }
+        .dark-mode .main-card, .dark-mode .navbar { background-color: #2d2d2d !important; color: white !important; }
+        .dark-mode .text-secondary, .dark-mode .text-muted { color: #ccc !important; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="{% url 'home' %}">Accessibility.Edu</a>
+        <div class="user-nav ms-auto d-flex align-items-center">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="btn btn-sm btn-outline-secondary me-3">📁 Менің файлдарым</a>
+                <span class="text-muted">Сәлем, <b>{{ user.username }}</b></span>
+                <form action="{% url 'logout' %}" method="post" class="ms-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link text-danger p-0 text-decoration-none fw-bold">Шығу</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Кіру</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary rounded-pill px-4 ms-3">Тіркелу</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8 main-card text-center">
+            <h1 class="display-5 fw-bold text-primary mb-3">Дыбыстық Оқулық</h1>
+            <p class="lead text-secondary mb-4">Көру қабілеті нашар студенттерге арналған материалдарды конвертациялау жүйесі.</p>
+
+            <div class="upload-area">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="form-label fw-bold mb-3">PDF файлды таңдаңыз:</label>
+                    <input type="file" name="myfile" class="form-control form-control-lg mb-4" accept=".pdf" required>
+                    <button type="submit" class="btn-convert">
+                        <span class="me-2">🔊</span> Аудиоға айналдыру
+                    </button>
+                </form>
+            </div>
+
+            {% if audio_url %}
+            <div class="mt-5 p-4 bg-light rounded-4 border-start border-primary border-5 text-dark">
+                <h4 class="text-start mb-3 font-weight-bold">🎧 Дайын аудио:</h4>
+                <audio controls class="w-100 mb-3">
+                    <source src="{{ audio_url }}" type="audio/mpeg">
+                </audio>
+                <div class="text-start">
+                    <a href="{{ audio_url }}" download class="btn btn-success rounded-pill px-4">💾 Жүктеп алу (.mp3)</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+
+<div class="accessibility-panel">
+    <button class="btn btn-dark rounded-circle shadow-lg p-3" onclick="toggleContrast()" title="Режимді ауыстыру">👁️</button>
+</div>
+
+<script>
+    function toggleContrast() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
