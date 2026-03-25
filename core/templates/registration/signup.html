@@ -1,24 +1,50 @@
-<!DOCTYPE html>
-<html lang="kk">
-<head>
-    <meta charset="UTF-8">
-    <title>Тіркелу - Accessibility Platform</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 50px; text-align: center; }
-        .form-container { background: white; padding: 40px; border-radius: 10px; display: inline-block; border: 2px solid #000; }
-        input { font-size: 1.2rem; padding: 10px; margin: 10px 0; width: 100%; }
-        button { background-color: #0056b3; color: white; padding: 15px 30px; border: none; font-size: 1.2rem; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>Жүйеге тіркелу</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Тіркелуді аяқтау</button>
-        </form>
-        <p>Аккаунтыңыз бар ма? <a href="{% url 'login' %}">Кіру</a></p>
+{% extends 'base.html' %}
+{% block title %}Тіркелу{% endblock %}
+
+{% block content %}
+<section class="flex items-center justify-center px-6 py-20">
+  <div class="w-full max-w-md">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-primary/10 p-8">
+      <div class="flex flex-col items-center gap-3 mb-8">
+        <div class="size-14 flex items-center justify-center bg-primary text-white rounded-2xl">
+          <span class="material-symbols-outlined text-3xl">person_add</span>
+        </div>
+        <h1 class="text-2xl font-black text-slate-900 dark:text-slate-100">Тіркелу</h1>
+        <p class="text-slate-500 text-sm text-center">Жаңа аккаунт жасаңыз</p>
+      </div>
+
+      <form method="post" class="flex flex-col gap-5">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">{{ field.label }}</label>
+          <input
+            type="{{ field.field.widget.input_type }}"
+            name="{{ field.html_name }}"
+            {% if field.value %}value="{{ field.value }}"{% endif %}
+            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+            placeholder="{{ field.label }}"
+          />
+          {% if field.errors %}
+            <p class="text-red-500 text-xs">{{ field.errors.0 }}</p>
+          {% endif %}
+          {% if field.help_text %}
+            <p class="text-slate-400 text-xs">{{ field.help_text }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="w-full rounded-xl h-12 bg-primary text-white font-bold text-base shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all mt-2">
+          Тіркелу
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <p class="text-slate-500 text-sm">
+          Аккаунт бар ма?
+          <a href="{% url 'login' %}" class="text-primary font-semibold hover:underline">Кіру</a>
+        </p>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+</section>
+{% endblock %}

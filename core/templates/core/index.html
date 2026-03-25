@@ -1,94 +1,284 @@
-<!DOCTYPE html>
-<html lang="kk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessibility Platform</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0056b3;
-            --bg-light: #f8f9fa;
-        }
-        body { background-color: var(--bg-light); font-family: 'Segoe UI', Tahoma, sans-serif; transition: 0.3s; }
-        .navbar { background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px 0; }
-        .main-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: white; padding: 40px; margin-top: 50px; }
-        .btn-convert { background-color: black; color: white; border-radius: 12px; padding: 15px; font-weight: bold; font-size: 1.2rem; transition: 0.3s; width: 100%; border: 2px solid black; }
-        .btn-convert:hover { background-color: white; color: black; }
-        .upload-area { border: 2px dashed var(--primary-blue); border-radius: 15px; padding: 30px; background-color: #f0f7ff; margin: 20px 0; }
-        .user-nav a { text-decoration: none; font-weight: 600; color: #333; margin-left: 15px; }
-        .accessibility-panel { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        /* Қара режим стилі */
-        .dark-mode { background-color: #1a1a1a !important; color: white !important; }
-        .dark-mode .main-card, .dark-mode .navbar { background-color: #2d2d2d !important; color: white !important; }
-        .dark-mode .text-secondary, .dark-mode .text-muted { color: #ccc !important; }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="{% url 'home' %}">Accessibility.Edu</a>
-        <div class="user-nav ms-auto d-flex align-items-center">
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="btn btn-sm btn-outline-secondary me-3">📁 Менің файлдарым</a>
-                <span class="text-muted">Сәлем, <b>{{ user.username }}</b></span>
-                <form action="{% url 'logout' %}" method="post" class="ms-3">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-link text-danger p-0 text-decoration-none fw-bold">Шығу</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}">Кіру</a>
-                <a href="{% url 'signup' %}" class="btn btn-primary rounded-pill px-4 ms-3">Тіркелу</a>
-            {% endif %}
-        </div>
+{% block title %}Accessible Learning Platform — Басты бет{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="px-6 md:px-10 lg:px-20 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-slate-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+          Accessible Educational Platform
+        </h1>
+        <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
+          Көрмеу және есту қабілеті нашар студенттерге арналған оқу материалдарын қолжетімді форматтарға түрлендіреді.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        {% if user.is_authenticated %}
+          <a href="#upload" class="flex min-w-[160px] cursor-pointer items-center justify-center gap-2 rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:scale-[1.02] transition-transform">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            Файл жүктеу
+          </a>
+        {% else %}
+          <a href="{% url 'signup' %}" class="flex min-w-[160px] cursor-pointer items-center justify-center gap-2 rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:scale-[1.02] transition-transform">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            Бастау
+          </a>
+        {% endif %}
+        <a href="{% url 'about' %}" class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white text-lg font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+          Толығырақ
+        </a>
+      </div>
     </div>
-</nav>
+    <div class="w-full aspect-square rounded-3xl overflow-hidden shadow-2xl bg-primary/5 flex items-center justify-center border border-primary/10 relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+      <div class="relative z-10 flex flex-col items-center gap-6 p-12">
+        <div class="grid grid-cols-2 gap-4 w-full">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 flex flex-col items-center gap-2 shadow-sm border border-primary/10">
+            <span class="material-symbols-outlined text-primary text-4xl">volume_up</span>
+            <span class="text-sm font-bold text-slate-700 dark:text-slate-300">PDF → Аудио</span>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 flex flex-col items-center gap-2 shadow-sm border border-primary/10">
+            <span class="material-symbols-outlined text-primary text-4xl">subtitles</span>
+            <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Субтитрлер</span>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 flex flex-col items-center gap-2 shadow-sm border border-primary/10">
+            <span class="material-symbols-outlined text-primary text-4xl">image_search</span>
+            <span class="text-sm font-bold text-slate-700 dark:text-slate-300">OCR</span>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 flex flex-col items-center gap-2 shadow-sm border border-primary/10">
+            <span class="material-symbols-outlined text-primary text-4xl">format_size</span>
+            <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Үлкен шрифт</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="container mt-4">
-    {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-md-8 main-card text-center">
-            <h1 class="display-5 fw-bold text-primary mb-3">Дыбыстық Оқулық</h1>
-            <p class="lead text-secondary mb-4">Көру қабілеті нашар студенттерге арналған материалдарды конвертациялау жүйесі.</p>
+<!-- FOCUS GROUPS -->
+<section class="px-6 md:px-10 lg:px-20 py-12 bg-primary/5">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="flex flex-col items-center text-center gap-4 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-shadow">
+      <div class="text-primary bg-primary/10 p-4 rounded-full">
+        <span class="material-symbols-outlined text-4xl">visibility</span>
+      </div>
+      <h2 class="text-slate-900 dark:text-white text-xl font-bold">Көрмеу қабілеті шектеулілер үшін</h2>
+      <p class="text-slate-500 text-sm">Экран оқырмандары және TTS технологиялары арқылы навигация жеңілдетілген.</p>
+    </div>
+    <div class="flex flex-col items-center text-center gap-4 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-shadow">
+      <div class="text-primary bg-primary/10 p-4 rounded-full">
+        <span class="material-symbols-outlined text-4xl">hearing</span>
+      </div>
+      <h2 class="text-slate-900 dark:text-white text-xl font-bold">Есіту қабілеті шектеулілер үшін</h2>
+      <p class="text-slate-500 text-sm">Жабық субтитрлер және ым тілі интерпретация құралдары.</p>
+    </div>
+    <div class="flex flex-col items-center text-center gap-4 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-shadow">
+      <div class="text-primary bg-primary/10 p-4 rounded-full">
+        <span class="material-symbols-outlined text-4xl">library_books</span>
+      </div>
+      <h2 class="text-slate-900 dark:text-white text-xl font-bold">Қолжетімді материалдар</h2>
+      <p class="text-slate-500 text-sm">WCAG стандарттарына сәйкес оқу ресурстарының бірыңғай репозиторийі.</p>
+    </div>
+  </div>
+</section>
 
-            <div class="upload-area">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <label class="form-label fw-bold mb-3">PDF файлды таңдаңыз:</label>
-                    <input type="file" name="myfile" class="form-control form-control-lg mb-4" accept=".pdf" required>
-                    <button type="submit" class="btn-convert">
-                        <span class="me-2">🔊</span> Аудиоға айналдыру
-                    </button>
-                </form>
-            </div>
+<!-- UPLOAD SECTION -->
+{% if user.is_authenticated %}
+<section id="upload" class="px-6 md:px-10 lg:px-20 py-16">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex flex-col gap-3 mb-8">
+      <h2 class="text-slate-900 dark:text-white text-4xl font-black tracking-tight">Оқу материалын жүктеу</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-lg">Файлдарыңызды қолжетімді форматтарға түрлендіріңіз.</p>
+    </div>
 
-            {% if audio_url %}
-            <div class="mt-5 p-4 bg-light rounded-4 border-start border-primary border-5 text-dark">
-                <h4 class="text-start mb-3 font-weight-bold">🎧 Дайын аудио:</h4>
-                <audio controls class="w-100 mb-3">
-                    <source src="{{ audio_url }}" type="audio/mpeg">
-                </audio>
-                <div class="text-start">
-                    <a href="{{ audio_url }}" download class="btn btn-success rounded-pill px-4">💾 Жүктеп алу (.mp3)</a>
+    <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 md:p-8">
+      <form method="post" enctype="multipart/form-data" class="flex flex-col gap-8">
+        {% csrf_token %}
+
+        <!-- DROP ZONE -->
+        <div class="flex flex-col items-center gap-6 rounded-xl border-4 border-dashed border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all px-6 py-16 text-center cursor-pointer" onclick="document.getElementById('fileInput').click()">
+          <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-4xl">cloud_upload</span>
+          </div>
+          <div class="space-y-2">
+            <p class="text-slate-900 dark:text-slate-50 text-xl font-bold">Файлды осында тастаңыз немесе таңдаңыз</p>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">
+              Қолдайтын форматтар: <span class="text-primary font-bold">PDF, DOCX, MP4, MP3</span>
+            </p>
+            <p id="fileName" class="text-primary font-semibold text-sm hidden"></p>
+          </div>
+          <input type="file" id="fileInput" name="myfile" accept=".pdf,.docx,.mp4,.mp3" class="hidden" onchange="showFileName(this)"/>
+          <button type="button" onclick="document.getElementById('fileInput').click()" class="flex min-w-[160px] items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
+            <span class="material-symbols-outlined">attachment</span>
+            Файл таңдау
+          </button>
+        </div>
+
+        <!-- CONVERSION TYPE -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <span class="material-symbols-outlined text-primary">settings_suggest</span>
+            <h3 class="text-slate-900 dark:text-slate-50 text-2xl font-bold">Конвертация түрін таңдаңыз</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="flex items-center gap-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 p-5 hover:border-primary/50 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input type="radio" name="conversion_type" value="tts" checked class="h-5 w-5 text-primary border-slate-300 focus:ring-primary"/>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">volume_up</span>
+                  <p class="text-slate-900 dark:text-slate-50 text-base font-bold">Мәтін → Аудио (TTS)</p>
                 </div>
-            </div>
-            {% endif %}
+                <p class="text-slate-500 dark:text-slate-400 text-sm">PDF/DOCX файлдарын дыбысқа айналдыру</p>
+              </div>
+            </label>
+            <label class="flex items-center gap-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 p-5 hover:border-primary/50 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input type="radio" name="conversion_type" value="subtitles" class="h-5 w-5 text-primary border-slate-300 focus:ring-primary"/>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">closed_caption</span>
+                  <p class="text-slate-900 dark:text-slate-50 text-base font-bold">Видео → Субтитрлер</p>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">MP4 видеоларға автоматты субтитр жасау</p>
+              </div>
+            </label>
+            <label class="flex items-center gap-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 p-5 hover:border-primary/50 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input type="radio" name="conversion_type" value="ocr" class="h-5 w-5 text-primary border-slate-300 focus:ring-primary"/>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">image_search</span>
+                  <p class="text-slate-900 dark:text-slate-50 text-base font-bold">Сурет → Мәтін (OCR)</p>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Суреттерден мәтінді автоматты тану</p>
+              </div>
+            </label>
+            <label class="flex items-center gap-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 p-5 hover:border-primary/50 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input type="radio" name="conversion_type" value="large_text" class="h-5 w-5 text-primary border-slate-300 focus:ring-primary"/>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">format_size</span>
+                  <p class="text-slate-900 dark:text-slate-50 text-base font-bold">Үлкен оқылатын мәтін</p>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Жоғары контрасты, үлкен шрифтпен форматтау</p>
+              </div>
+            </label>
+          </div>
         </div>
+
+        <!-- SUBMIT -->
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+          <button type="submit" class="w-full flex items-center justify-center gap-3 rounded-xl h-16 bg-primary text-white text-xl font-extrabold shadow-xl shadow-primary/30 hover:shadow-primary/40 active:scale-[0.98] transition-all">
+            <span class="material-symbols-outlined text-3xl">auto_fix_high</span>
+            Файлды конвертациялау
+          </button>
+          <p class="text-center mt-4 text-slate-500 text-sm">
+            Файлдарыңыз қауіпсіз өңделеді.
+          </p>
+        </div>
+      </form>
     </div>
-    {% endblock %}
-</div>
 
-<div class="accessibility-panel">
-    <button class="btn btn-dark rounded-circle shadow-lg p-3" onclick="toggleContrast()" title="Режимді ауыстыру">👁️</button>
-</div>
+    {% if audio_url %}
+    <div class="mt-8 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-green-600 text-3xl">check_circle</span>
+        <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold">Конвертация сәтті аяқталды!</h3>
+      </div>
+      <audio controls class="w-full rounded-lg" style="accent-color: #0056b2;">
+        <source src="{{ audio_url }}" type="audio/mpeg">
+        Браузеріңіз аудиоды қолдамайды.
+      </audio>
+      <a href="{{ audio_url }}" download class="mt-4 flex items-center justify-center gap-2 rounded-lg h-11 px-6 bg-primary text-white font-bold hover:bg-primary/90 transition-all w-full sm:w-auto">
+        <span class="material-symbols-outlined">download</span>
+        MP3 жүктеу
+      </a>
+    </div>
+    {% endif %}
 
+    <!-- BADGES -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div class="bg-primary/5 p-6 rounded-xl border border-primary/10 flex flex-col items-center text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-2">speed</span>
+        <h4 class="font-bold text-slate-900 dark:text-slate-50">Жылдам өңдеу</h4>
+        <p class="text-sm text-slate-500">Секундтар ішінде дайын</p>
+      </div>
+      <div class="bg-primary/5 p-6 rounded-xl border border-primary/10 flex flex-col items-center text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-2">security</span>
+        <h4 class="font-bold text-slate-900 dark:text-slate-50">100% Қауіпсіз</h4>
+        <p class="text-sm text-slate-500">Шифрланған өңдеу</p>
+      </div>
+      <div class="bg-primary/5 p-6 rounded-xl border border-primary/10 flex flex-col items-center text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-2">all_inclusive</span>
+        <h4 class="font-bold text-slate-900 dark:text-slate-50">Көп форматты</h4>
+        <p class="text-sm text-slate-500">Барлық негізгі форматтарды қолдайды</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- KEY FEATURES -->
+<section class="px-6 md:px-10 lg:px-20 py-20 {% if user.is_authenticated %}bg-primary/5{% endif %}">
+  <div class="max-w-6xl mx-auto flex flex-col gap-12">
+    <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto">
+      <h2 class="text-slate-900 dark:text-white text-4xl font-black tracking-tight">Негізгі мүмкіндіктер</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-lg">Инклюзивті оқуға арналған мамандандырылған құралдар.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="flex flex-col gap-5 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-6 hover:border-primary/40 transition-all group">
+        <div class="text-primary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-4xl">volume_up</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-slate-900 dark:text-white text-lg font-bold">Мәтіннен дыбысқа</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Кез келген оқулық немесе құжатты табиғи дыбысты аудиоға айналдырыңыз.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-6 hover:border-primary/40 transition-all group">
+        <div class="text-primary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-4xl">mic</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-slate-900 dark:text-white text-lg font-bold">Дыбыстан мәтінге</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Дәрістер мен семинарлар үшін нақты уақытта транскрипция.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-6 hover:border-primary/40 transition-all group">
+        <div class="text-primary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-4xl">subtitles</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-slate-900 dark:text-white text-lg font-bold">Субтитр генераторы</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Оқу бейнелері үшін бірнеше тілде дәл субтитрлерді автоматты жасаңыз.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 rounded-2xl border border-primary/10 bg-white dark:bg-slate-900 p-6 hover:border-primary/40 transition-all group">
+        <div class="text-primary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-4xl">zoom_in</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-slate-900 dark:text-white text-lg font-bold">Қолжетімділік құралдары</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Жоғары контраст режимдері, шрифт өлшемі және фокус құралдары.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
 <script>
-    function toggleContrast() {
-        document.body.classList.toggle('dark-mode');
-    }
+function showFileName(input) {
+  const label = document.getElementById('fileName');
+  if (input.files && input.files[0]) {
+    label.textContent = '✓ Таңдалды: ' + input.files[0].name;
+    label.classList.remove('hidden');
+  }
+}
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}
