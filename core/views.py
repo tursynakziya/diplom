@@ -88,11 +88,11 @@ def _transcribe_accurate(audio_path, language=None):
         compression_ratio_threshold=2.4,
     )
     return segments_gen, info
-os.environ["PATH"] = r"E:\ffmpeg-8.1-essentials_build\bin" + os.pathsep + os.environ.get("PATH", "")
-
-os.environ['TESSDATA_PREFIX'] = r'E:\tess\tessdata'
+# Windows жергілікті ffmpeg жолы (Railway-де PATH-та болады)
+if os.name == 'nt':
+    os.environ["PATH"] = r"E:\ffmpeg-8.1-essentials_build\bin" + os.pathsep + os.environ.get("PATH", "")
+    os.environ['TESSDATA_PREFIX'] = r'E:\tess\tessdata'
 import fitz  # PyMuPDF
-import whisper
 import pytesseract
 from PIL import Image
 from reportlab.lib.pagesizes import A4
@@ -116,8 +116,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 
 
-# Tesseract жолын көрсет (Windows үшін)
-pytesseract.pytesseract.tesseract_cmd = r'E:\tess\tesseract.exe'
+# Tesseract жолы — тек Windows жергілікті ортада
+if os.name == 'nt' and os.path.exists(r'E:\tess\tesseract.exe'):
+    pytesseract.pytesseract.tesseract_cmd = r'E:\tess\tesseract.exe'
 
 
 
