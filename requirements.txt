@@ -1,0 +1,14 @@
+Django==5.1.13
+PyMuPDF==1.27.1
+faster-whisper==1.2.1
+edge-tts==7.2.7
+gTTS==2.5.4
+reportlab==4.4.10
+Pillow==11.3.0
+pytesseract==0.3.13
+python-docx==1.2.0
+psycopg2-binary==2.9.10
+gunicorn==21.2.0
+whitenoise==6.7.0
+python-decouple==3.8
+dj-database-url==2.2.0

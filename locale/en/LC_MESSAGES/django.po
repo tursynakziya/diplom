@@ -1,0 +1,1337 @@
+# English translations for Accessible Learning Platform
+# Copyright (C) 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-20 14:15+0500\n"
+"PO-Revision-Date: 2026-04-03 00:00+0500\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# settings.py
+#: .\accessibility_platform\settings.py:81
+#: .\core\templates\core\admin_dashboard.html:374
+#: .\core\templates\core\index.html:156
+#: .\core\templates\core\speech_to_text.html:26
+msgid "Қазақша"
+msgstr "Kazakh"
+
+#: .\accessibility_platform\settings.py:82
+#: .\core\templates\core\admin_dashboard.html:375
+#: .\core\templates\core\index.html:157
+#: .\core\templates\core\speech_to_text.html:30
+msgid "Орысша"
+msgstr "Russian"
+
+#: .\accessibility_platform\settings.py:83
+msgid "English"
+msgstr "English"
+
+# base.html — navigation
+#: .\core\templates\base.html:123 .\core\templates\core\index.html:5
+msgid "Басты бет"
+msgstr "Home"
+
+#: .\core\templates\base.html:126 .\core\templates\base.html:240
+#: .\core\templates\core\about.html:3 .\core\templates\core\about.html:12
+msgid "Платформа туралы"
+msgstr "About"
+
+#: .\core\templates\base.html:130 .\core\templates\core\profile.html:3
+#: .\core\templates\core\profile.html:9
+msgid "Менің файлдарым"
+msgstr "My Files"
+
+# base.html — nav & chat
+#: .\core\templates\base.html:134 .\core\templates\core\speech_to_text.html:3
+#: .\core\templates\core\speech_to_text.html:11
+msgid "Дыбыс тану"
+msgstr "Speech Recognition"
+
+#: .\core\templates\base.html:137 .\core\templates\core\admin_dashboard.html:94
+msgid "Параметрлер"
+msgstr "Settings"
+
+#: .\core\templates\base.html:141 .\core\templates\core\admin_dashboard.html:3
+#: .\core\templates\core\admin_dashboard.html:27
+msgid "Админ панелі"
+msgstr "Admin Panel"
+
+#: .\core\templates\base.html:179
+msgid "Көру режимі"
+msgstr "Visual Mode"
+
+#: .\core\templates\base.html:188
+msgid "Шығу"
+msgstr "Logout"
+
+#: .\core\templates\base.html:193 .\core\templates\core\index.html:25
+msgid "Файл жүктеу"
+msgstr "Upload File"
+
+#: .\core\templates\base.html:196 .\core\templates\registration\login.html:3
+#: .\core\templates\registration\login.html:54
+#: .\core\templates\registration\signup.html:92
+msgid "Кіру"
+msgstr "Login"
+
+#: .\core\templates\base.html:204
+msgid "Көру қабілеті нашар адамдарға арналған режим қосылды"
+msgstr "Visual impairment mode enabled"
+
+#: .\core\templates\base.html:207
+msgid "Өшіру"
+msgstr "Turn off"
+
+#: .\core\templates\base.html:241
+msgid "Қолдау"
+msgstr "Support"
+
+#: .\core\templates\base.html:259
+msgid "Қолдау қызметі"
+msgstr "Support Service"
+
+#: .\core\templates\base.html:283
+#: .\core\templates\core\admin_dashboard.html:132
+msgid "Админ"
+msgstr "Admin"
+
+#: .\core\templates\base.html:293
+msgid "Сұрақтарыңызды жазыңыз"
+msgstr "Write your questions"
+
+#: .\core\templates\base.html:302
+msgid "Тақырып..."
+msgstr "Subject..."
+
+#: .\core\templates\base.html:305
+msgid "Хабарламаңызды жазыңыз..."
+msgstr "Write your message..."
+
+#: .\core\templates\core\_transcript_result.html:5
+#: .\core\templates\core\speech_to_text.html:80
+msgid "Танылған мәтін:"
+msgstr "Recognized text:"
+
+#: .\core\templates\core\_transcript_result.html:11
+#: .\core\templates\core\index.html:499
+#: .\core\templates\core\speech_to_text.html:85
+msgid "Көшіру"
+msgstr "Copy"
+
+#: .\core\templates\core\_transcript_result.html:16
+#: .\core\templates\core\speech_to_text.html:89
+msgid "Тазалау"
+msgstr "Clear"
+
+#: .\core\templates\core\_transcript_result.html:21
+#: .\core\templates\core\index.html:448 .\core\templates\core\index.html:478
+#: .\core\templates\core\speech_to_text.html:93
+msgid "TXT жүктеу"
+msgstr "Download TXT"
+
+#: .\core\templates\core\_transcript_result.html:27
+msgid "Мәтін осында шығады..."
+msgstr "Text will appear here..."
+
+#: .\core\templates\core\_transcript_result.html:30
+#: .\core\templates\core\_transcript_result.html:33
+#: .\core\templates\core\speech_to_text.html:107
+#: .\core\templates\core\speech_to_text.html:119
+msgid "символ"
+msgstr "characters"
+
+#: .\core\templates\core\_transcript_result.html:31
+#: .\core\templates\core\_transcript_result.html:34
+#: .\core\templates\core\speech_to_text.html:108
+#: .\core\templates\core\speech_to_text.html:120
+msgid "сөз"
+msgstr "words"
+
+# about.html
+#: .\core\templates\core\about.html:11
+msgid "Біздің миссия"
+msgstr "Our Mission"
+
+#: .\core\templates\core\about.html:15
+msgid ""
+"Инклюзивті технология арқылы көру және есту қабілеті нашар студенттерге "
+"мүмкіндік береміз. Білім — шектеусіз болуы тиіс, сондықтан біздің платформа "
+"әр студентке тең мүмкіндік беруге арналған."
+msgstr ""
+"We empower students with visual and hearing impairments through inclusive "
+"technology. Education should be limitless, which is why our platform is "
+"designed to provide equal opportunities for every student."
+
+#: .\core\templates\core\about.html:23
+msgid ""
+"Біздің миссия — білім берудегі кедергілерді жою. Біз физикалық "
+"мүмкіндіктеріне қарамастан, барлық студенттің оқу материалдарына тең қол "
+"жеткізуін қамтамасыз ету үшін арнайы құралдар мен ресурстар ұсынамыз. "
+"Жасанды интеллект пен қолданушыға бағытталған дизайнның көмегімен әрбір "
+"адамға ыңғайлы білім беру ортасын қалыптастырамыз."
+msgstr ""
+"Our mission is to remove barriers in education. We provide specialized tools "
+"and resources to ensure equal access to learning materials for all students, "
+"regardless of their physical abilities. Using artificial intelligence and "
+"user-centered design, we create a comfortable learning environment for "
+"everyone."
+
+#: .\core\templates\core\about.html:30 .\core\templates\core\profile.html:16
+msgid "Қолжетімді форматтар"
+msgstr "Accessible Formats"
+
+#: .\core\templates\core\about.html:38
+msgid "Аудио дәрістер"
+msgstr "Audio Lectures"
+
+#: .\core\templates\core\about.html:39
+msgid "Визуалды оқушыларға арналған аудио сипаттамалар."
+msgstr "Audio descriptions for visual learners."
+
+#: .\core\templates\core\about.html:47
+msgid "Мәтіндік транскриптілер"
+msgstr "Text Transcripts"
+
+#: .\core\templates\core\about.html:48
+msgid "Барлық видео контенттің толық мәтіндік нұсқалары."
+msgstr "Complete text versions of all video content."
+
+#: .\core\templates\core\about.html:56
+msgid "Дәл субтитрлер"
+msgstr "Accurate Subtitles"
+
+#: .\core\templates\core\about.html:57
+msgid "Есту қабілеті нашар студенттерге арналған нақты жазулар."
+msgstr "Precise captions for hearing-impaired students."
+
+#: .\core\templates\core\about.html:65
+msgid "Үлкен баспа"
+msgstr "Large Print"
+
+#: .\core\templates\core\about.html:66
+msgid "Нашар көретіндерге арналған жоғары контрастты құжаттар."
+msgstr "High-contrast documents for the visually impaired."
+
+#: .\core\templates\core\about.html:78
+msgid "Барлық студент үшін білім"
+msgstr "Education for All Students"
+
+#: .\core\templates\core\about.html:79
+msgid "Технология арқылы тең қол жетімділік"
+msgstr "Equal Access Through Technology"
+
+#: .\core\templates\core\about.html:85
+msgid "Қолжетімділік стандарты"
+msgstr "Accessibility Standard"
+
+#: .\core\templates\core\about.html:87
+msgid ""
+"Платформамыз WCAG 2.1 AA стандарттарына сәйкес, бұл көмекші технологиялар "
+"үшін жоғары деңгейді қамтамасыз етеді."
+msgstr ""
+"Our platform complies with WCAG 2.1 AA standards, ensuring a high level of "
+"support for assistive technologies."
+
+# admin_dashboard.html
+#: .\core\templates\core\admin_dashboard.html:28
+msgid "Платформаны басқару орталығы"
+msgstr "Platform Management Center"
+
+#: .\core\templates\core\admin_dashboard.html:33
+msgid "Жүйе жұмыс істеуде"
+msgstr "System is running"
+
+#: .\core\templates\core\admin_dashboard.html:44
+#: .\core\templates\core\admin_dashboard.html:54
+msgid "бүгін"
+msgstr "today"
+
+#: .\core\templates\core\admin_dashboard.html:47
+msgid "Барлық пайдаланушы"
+msgstr "Total Users"
+
+#: .\core\templates\core\admin_dashboard.html:57
+msgid "Конвертацияланған файлдар"
+msgstr "Converted Files"
+
+#: .\core\templates\core\admin_dashboard.html:66
+msgid "TTS конвертациялар"
+msgstr "TTS Conversions"
+
+#: .\core\templates\core\admin_dashboard.html:75
+msgid "Субтитр конвертациялар"
+msgstr "Subtitle Conversions"
+
+#: .\core\templates\core\admin_dashboard.html:82
+msgid "Пайдаланушылар"
+msgstr "Users"
+
+#: .\core\templates\core\admin_dashboard.html:85
+msgid "Статистика"
+msgstr "Statistics"
+
+#: .\core\templates\core\admin_dashboard.html:88
+#: .\core\templates\core\admin_dashboard.html:116
+msgid "Файлдар"
+msgstr "Files"
+
+#: .\core\templates\core\admin_dashboard.html:91
+msgid "Хабарлама"
+msgstr "Notifications"
+
+# admin_dashboard.html — messages section
+#: .\core\templates\core\admin_dashboard.html:97
+msgid "Хабарламалар"
+msgstr "Messages"
+
+#: .\core\templates\core\admin_dashboard.html:102
+msgid "пайдаланушысын жою?"
+msgstr "delete user?"
+
+#: .\core\templates\core\admin_dashboard.html:107
+msgid "Пайдаланушылар тізімі"
+msgstr "User List"
+
+#: .\core\templates\core\admin_dashboard.html:108
+msgid "пайдаланушы"
+msgstr "users"
+
+#: .\core\templates\core\admin_dashboard.html:114
+#: .\core\templates\core\admin_dashboard.html:227
+msgid "Пайдаланушы"
+msgstr "User"
+
+#: .\core\templates\core\admin_dashboard.html:117
+msgid "Тіркелген"
+msgstr "Registered"
+
+#: .\core\templates\core\admin_dashboard.html:118
+msgid "Статус"
+msgstr "Status"
+
+#: .\core\templates\core\admin_dashboard.html:119
+#: .\core\templates\core\admin_dashboard.html:230
+msgid "Әрекет"
+msgstr "Action"
+
+#: .\core\templates\core\admin_dashboard.html:143
+msgid "Белсенді"
+msgstr "Active"
+
+#: .\core\templates\core\admin_dashboard.html:145
+msgid "Блокталған"
+msgstr "Blocked"
+
+#: .\core\templates\core\admin_dashboard.html:156
+msgid "Блоктау"
+msgstr "Block"
+
+#: .\core\templates\core\admin_dashboard.html:156
+msgid "Белсендіру"
+msgstr "Activate"
+
+#: .\core\templates\core\admin_dashboard.html:163
+#: .\core\templates\core\admin_dashboard.html:263
+msgid "Жою"
+msgstr "Delete"
+
+#: .\core\templates\core\admin_dashboard.html:171
+msgid "Пайдаланушылар жоқ"
+msgstr "No users"
+
+#: .\core\templates\core\admin_dashboard.html:183
+msgid "Конвертация түрлері"
+msgstr "Conversion Types"
+
+#: .\core\templates\core\admin_dashboard.html:187
+msgid "Апталық белсенділік"
+msgstr "Weekly Activity"
+
+#: .\core\templates\core\admin_dashboard.html:191
+msgid "Егжей-тегжейлі статистика"
+msgstr "Detailed Statistics"
+
+#: .\core\templates\core\admin_dashboard.html:195
+#: .\core\templates\core\admin_dashboard.html:560
+#: .\core\templates\core\index.html:44
+msgid "Аудио"
+msgstr "Audio"
+
+#: .\core\templates\core\admin_dashboard.html:199
+#: .\core\templates\core\admin_dashboard.html:560
+#: .\core\templates\core\index.html:48
+msgid "Субтитрлер"
+msgstr "Subtitles"
+
+#: .\core\templates\core\admin_dashboard.html:207
+#: .\core\templates\core\admin_dashboard.html:560
+msgid "Үлкен мәтін"
+msgstr "Large Text"
+
+#: .\core\templates\core\admin_dashboard.html:214
+#: .\core\templates\core\profile.html:85
+msgid "Файлды жою?"
+msgstr "Delete file?"
+
+#: .\core\templates\core\admin_dashboard.html:219
+msgid "Барлық файлдар"
+msgstr "All Files"
+
+#: .\core\templates\core\admin_dashboard.html:220
+#: .\core\templates\core\profile.html:17
+msgid "файл"
+msgstr "files"
+
+#: .\core\templates\core\admin_dashboard.html:226
+msgid "Файл атауы"
+msgstr "File Name"
+
+#: .\core\templates\core\admin_dashboard.html:228
+msgid "Түрі"
+msgstr "Type"
+
+#: .\core\templates\core\admin_dashboard.html:229
+msgid "Жасалған"
+msgstr "Created"
+
+#: .\core\templates\core\admin_dashboard.html:269
+#: .\core\templates\core\profile.html:118
+msgid "Файлдар жоқ"
+msgstr "No files"
+
+#: .\core\templates\core\admin_dashboard.html:283
+msgid "Хабарлама жіберу"
+msgstr "Send Notification"
+
+#: .\core\templates\core\admin_dashboard.html:288
+msgid "Алушы"
+msgstr "Recipient"
+
+#: .\core\templates\core\admin_dashboard.html:290
+msgid "Барлық пайдаланушылар"
+msgstr "All Users"
+
+#: .\core\templates\core\admin_dashboard.html:299
+msgid "Тақырып"
+msgstr "Subject"
+
+#: .\core\templates\core\admin_dashboard.html:300
+msgid "Хабарлама тақырыбы..."
+msgstr "Notification subject..."
+
+#: .\core\templates\core\admin_dashboard.html:304
+msgid "Хабарлама мәтіні"
+msgstr "Notification Text"
+
+#: .\core\templates\core\admin_dashboard.html:305
+msgid "Хабарлама мазмұны..."
+msgstr "Notification content..."
+
+#: .\core\templates\core\admin_dashboard.html:311
+msgid "Жіберу"
+msgstr "Send"
+
+#: .\core\templates\core\admin_dashboard.html:319
+msgid "Жіберілген хабарламалар"
+msgstr "Sent Notifications"
+
+#: .\core\templates\core\admin_dashboard.html:329
+msgid "Алушы:"
+msgstr "To:"
+
+#: .\core\templates\core\admin_dashboard.html:329
+msgid "Барлығы"
+msgstr "Everyone"
+
+#: .\core\templates\core\admin_dashboard.html:334
+#: .\core\templates\core\admin_dashboard.html:516
+msgid "Хабарламалар жоқ"
+msgstr "No notifications"
+
+#: .\core\templates\core\admin_dashboard.html:347
+msgid "Жүйе параметрлері"
+msgstr "System Settings"
+
+#: .\core\templates\core\admin_dashboard.html:354
+msgid "TTS Дауысы"
+msgstr "TTS Voice"
+
+#: .\core\templates\core\admin_dashboard.html:358
+msgid "Айгүл (Қазақша - Әйел)"
+msgstr "Aigul (Kazakh - Female)"
+
+#: .\core\templates\core\admin_dashboard.html:361
+msgid "Дәулет (Қазақша - Ер)"
+msgstr "Daulet (Kazakh - Male)"
+
+#: .\core\templates\core\admin_dashboard.html:364
+msgid "Светлана (Орысша)"
+msgstr "Svetlana (Russian)"
+
+#: .\core\templates\core\admin_dashboard.html:371
+msgid "Әдепкі тіл"
+msgstr "Default Language"
+
+#: .\core\templates\core\admin_dashboard.html:376
+#: .\core\templates\core\index.html:158
+#: .\core\templates\core\speech_to_text.html:34
+msgid "Ағылшынша"
+msgstr "English"
+
+#: .\core\templates\core\admin_dashboard.html:382
+msgid "Whisper моделі"
+msgstr "Whisper Model"
+
+#: .\core\templates\core\admin_dashboard.html:385
+msgid "Жылдам"
+msgstr "Fast"
+
+#: .\core\templates\core\admin_dashboard.html:386
+msgid "Орташа"
+msgstr "Medium"
+
+#: .\core\templates\core\admin_dashboard.html:387
+msgid "Дәл"
+msgstr "Accurate"
+
+#: .\core\templates\core\admin_dashboard.html:393
+msgid "Макс. файл өлшемі (МБ)"
+msgstr "Max. File Size (MB)"
+
+#: .\core\templates\core\admin_dashboard.html:402
+msgid "Сақтау"
+msgstr "Save"
+
+#: .\core\templates\core\admin_dashboard.html:410
+msgid "Жүйе ақпараты"
+msgstr "System Information"
+
+#: .\core\templates\core\admin_dashboard.html:414
+msgid "Django нұсқасы"
+msgstr "Django Version"
+
+#: .\core\templates\core\admin_dashboard.html:418
+msgid "Python нұсқасы"
+msgstr "Python Version"
+
+#: .\core\templates\core\admin_dashboard.html:422
+msgid "Деректер қоры"
+msgstr "Database"
+
+#: .\core\templates\core\admin_dashboard.html:426
+msgid "Медиа өлшемі"
+msgstr "Media Size"
+
+#: .\core\templates\core\admin_dashboard.html:430
+msgid "TTS дауысы"
+msgstr "TTS Voice"
+
+#: .\core\templates\core\admin_dashboard.html:444
+msgid "Пайдаланушылардан хабарламалар"
+msgstr "Messages from Users"
+
+#: .\core\templates\core\admin_dashboard.html:447
+msgid "жаңа"
+msgstr "new"
+
+#: .\core\templates\core\admin_dashboard.html:465
+msgid "Жаңа"
+msgstr "New"
+
+#: .\core\templates\core\admin_dashboard.html:466
+msgid "Оқылған"
+msgstr "Read"
+
+#: .\core\templates\core\admin_dashboard.html:467
+#: .\core\templates\core\admin_dashboard.html:483
+msgid "Жауап берілген"
+msgstr "Answered"
+
+#: .\core\templates\core\admin_dashboard.html:479
+msgid "Жауап беру"
+msgstr "Reply"
+
+#: .\core\templates\core\admin_dashboard.html:492
+msgid "Сіздің жауабыңыз"
+msgstr "Your Reply"
+
+#: .\core\templates\core\admin_dashboard.html:502
+msgid "Жауабыңызды жазыңыз..."
+msgstr "Write your reply..."
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Дс"
+msgstr "Mon"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Сс"
+msgstr "Tue"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Ср"
+msgstr "Wed"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Бс"
+msgstr "Thu"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Жм"
+msgstr "Fri"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Сб"
+msgstr "Sat"
+
+#: .\core\templates\core\admin_dashboard.html:576
+msgid "Жк"
+msgstr "Sun"
+
+#: .\core\templates\core\admin_dashboard.html:578
+msgid "Конвертациялар"
+msgstr "Conversions"
+
+# index.html
+#: .\core\templates\core\index.html:18
+msgid ""
+"Көру және есту қабілеті нашар студенттерге арналған оқу материалдарын "
+"қолжетімді форматтарға түрлендіреді."
+msgstr ""
+"Converts educational materials into accessible formats for students with "
+"visual and hearing impairments."
+
+#: .\core\templates\core\index.html:30
+#: .\core\templates\core\speech_to_text.html:62
+msgid "Бастау"
+msgstr "Get Started"
+
+#: .\core\templates\core\index.html:34
+msgid "Толығырақ"
+msgstr "Learn More"
+
+#: .\core\templates\core\index.html:56
+msgid "Үлкен шрифт"
+msgstr "Large Font"
+
+#: .\core\templates\core\index.html:71
+msgid "Көру қабілеті нашар студенттерге"
+msgstr "For Visually Impaired"
+
+#: .\core\templates\core\index.html:78
+msgid "Есту қабілеті нашар студенттерге"
+msgstr "For Hearing Impaired"
+
+#: .\core\templates\core\index.html:85
+msgid "Қолжетімді материалдар"
+msgstr "Accessible Materials"
+
+#: .\core\templates\core\index.html:96
+msgid "Оқу материалын жүктеу"
+msgstr "Upload Learning Material"
+
+#: .\core\templates\core\index.html:97
+msgid "Файлдарыңызды қолжетімді форматтарға түрлендіріңіз."
+msgstr "Convert your files into accessible formats."
+
+#: .\core\templates\core\index.html:110
+msgid "Файлды осында тастаңыз немесе таңдаңыз"
+msgstr "Drop your file here or select one"
+
+#: .\core\templates\core\index.html:112
+msgid "Қолдайтын форматтар:"
+msgstr "Supported formats:"
+
+#: .\core\templates\core\index.html:119
+msgid "Файл таңдау"
+msgstr "Select File"
+
+#: .\core\templates\core\index.html:127
+msgid "Конвертация түрін таңдаңыз"
+msgstr "Choose Conversion Type"
+
+#: .\core\templates\core\index.html:137
+msgid "Мәтін → Аудио (TTS)"
+msgstr "Text → Audio (TTS)"
+
+#: .\core\templates\core\index.html:139
+msgid "PDF/DOCX файлдарын дыбысқа айналдыру"
+msgstr "Convert PDF/DOCX files to audio"
+
+#: .\core\templates\core\index.html:149
+msgid "Видео → Субтитрлер"
+msgstr "Video → Subtitles"
+
+#: .\core\templates\core\index.html:151
+msgid "MP4 видеоларға автоматты субтитр жасау"
+msgstr "Automatically generate subtitles for MP4 videos"
+
+#: .\core\templates\core\index.html:153
+#, fuzzy
+#| msgid "Әдепкі тіл"
+msgid "Видео тілі"
+msgstr "Default Language"
+
+#: .\core\templates\core\index.html:159
+#, fuzzy
+#| msgid "Автоматты оқу"
+msgid "Авто-анықтау"
+msgstr "Auto Read"
+
+#: .\core\templates\core\index.html:171
+msgid "Сурет → Мәтін (OCR)"
+msgstr "Image → Text (OCR)"
+
+#: .\core\templates\core\index.html:173
+msgid "Суреттерден мәтінді автоматты тану"
+msgstr "Automatically recognize text from images"
+
+#: .\core\templates\core\index.html:185
+msgid "Үлкен оқылатын мәтін"
+msgstr "Large Readable Text"
+
+#: .\core\templates\core\index.html:187
+msgid "Жоғары контрасты, үлкен шрифтпен форматтау"
+msgstr "Format with high contrast and large font"
+
+#: .\core\templates\core\index.html:195
+msgid "Шрифт өлшемі:"
+msgstr "Font Size:"
+
+#: .\core\templates\core\index.html:214
+msgid "Түс схемасы:"
+msgstr "Color Scheme:"
+
+#: .\core\templates\core\index.html:219
+msgid "Ақ фон"
+msgstr "White Background"
+
+#: .\core\templates\core\index.html:224
+msgid "Қара фон"
+msgstr "Black Background"
+
+#: .\core\templates\core\index.html:229
+msgid "Сары фон"
+msgstr "Yellow Background"
+
+#: .\core\templates\core\index.html:234
+msgid "Кремді фон"
+msgstr "Cream Background"
+
+#: .\core\templates\core\index.html:243
+msgid "Жол аралығы:"
+msgstr "Line Spacing:"
+
+#: .\core\templates\core\index.html:260
+msgid "Шрифт түрі:"
+msgstr "Font Type:"
+
+#: .\core\templates\core\index.html:264
+msgid "Қарапайым"
+msgstr "Regular"
+
+#: .\core\templates\core\index.html:268
+msgid "Дислексия"
+msgstr "Dyslexia"
+
+#: .\core\templates\core\index.html:276
+msgid "Бет өлшемі:"
+msgstr "Page Size:"
+
+#: .\core\templates\core\index.html:280
+msgid "Стандарт"
+msgstr "Standard"
+
+#: .\core\templates\core\index.html:284 .\core\templates\core\settings.html:31
+msgid "Үлкен"
+msgstr "Large"
+
+#: .\core\templates\core\index.html:293
+msgid "Алдын ала қарау:"
+msgstr "Preview:"
+
+#: .\core\templates\core\index.html:296
+msgid "Жаңарту"
+msgstr "Update"
+
+#: .\core\templates\core\index.html:301
+msgid "Үлгі мәтін. Бұл жерде PDF мазмұны осылай көрінеді."
+msgstr "Sample text. PDF content will appear like this."
+
+# index.html — braille
+#: .\core\templates\core\index.html:318
+msgid "Мәтін → Брайль таңбалары"
+msgstr "Text → Braille"
+
+#: .\core\templates\core\index.html:320
+msgid "Мәтін немесе PDF-ті Брайль Unicode таңбаларына айналдыру"
+msgstr "Convert text or PDF into Braille Unicode characters"
+
+#: .\core\templates\core\index.html:325
+msgid "Мәтін енгізіңіз (немесе PDF жүктеңіз):"
+msgstr "Enter text (or upload a PDF):"
+
+#: .\core\templates\core\index.html:328
+msgid "Осында мәтін жазыңыз... Мысалы: Сәлем, Дүние!"
+msgstr "Write text here... For example: Hello, World!"
+
+#: .\core\templates\core\index.html:332
+msgid "таңба"
+msgstr "chars"
+
+#: .\core\templates\core\index.html:333
+msgid "PDF жүктеу де жұмыс істейді (мәтін өрісін бос қалдырыңыз)"
+msgstr "PDF upload also works (leave the text field empty)"
+
+# index.html — audio_text
+#: .\core\templates\core\index.html:347
+msgid "Аудио → Мәтін (AI)"
+msgstr "Audio → Text (AI)"
+
+#: .\core\templates\core\index.html:349
+msgid "MP3/WAV/M4A аудио файлды Whisper AI арқылы мәтінге айналдыру"
+msgstr "Convert MP3/WAV/M4A audio file to text using Whisper AI"
+
+#: .\core\templates\core\index.html:352
+msgid ""
+"MP3, WAV, M4A, OGG, FLAC форматтары қолданылады. Файл таңдағышынан аудио "
+"файл таңдаңыз."
+msgstr ""
+"MP3, WAV, M4A, OGG, FLAC formats are supported. Select an audio file from "
+"the file picker."
+
+#: .\core\templates\core\index.html:365
+msgid "Файлды конвертациялау"
+msgstr "Convert File"
+
+#: .\core\templates\core\index.html:368
+msgid "Файлдарыңыз қауіпсіз өңделеді."
+msgstr "Your files are processed securely."
+
+#: .\core\templates\core\index.html:381
+msgid "Қате орын алды"
+msgstr "An error occurred"
+
+#: .\core\templates\core\index.html:391
+msgid "Аудио дайын!"
+msgstr "Audio is ready!"
+
+#: .\core\templates\core\index.html:399
+msgid "MP3 жүктеу"
+msgstr "Download MP3"
+
+#: .\core\templates\core\index.html:408
+msgid "Субтитрлер дайын!"
+msgstr "Subtitles are ready!"
+
+#: .\core\templates\core\index.html:410 .\core\templates\core\index.html:472
+msgid "Анықталған тіл:"
+msgstr "Detected language:"
+
+#: .\core\templates\core\index.html:424
+msgid "SRT жүктеу"
+msgstr "Download SRT"
+
+# index.html — subtitles
+#: .\core\templates\core\index.html:430
+msgid "Субтитрлі видео жүктеу (MP4)"
+msgstr "Download Video with Subtitles (MP4)"
+
+#: .\core\templates\core\index.html:440
+msgid "Мәтін танылды!"
+msgstr "Text recognized!"
+
+#: .\core\templates\core\index.html:456
+msgid "Үлкен мәтін дайын!"
+msgstr "Large text is ready!"
+
+#: .\core\templates\core\index.html:461
+msgid "PDF жүктеу"
+msgstr "Download PDF"
+
+#: .\core\templates\core\index.html:471
+msgid "Мәтін дайын!"
+msgstr "Text is ready!"
+
+#: .\core\templates\core\index.html:490
+msgid "Брайль таңбалары дайын!"
+msgstr "Braille characters are ready!"
+
+#: .\core\templates\core\index.html:496
+msgid "Брайль нәтижесі"
+msgstr "Braille Result"
+
+#: .\core\templates\core\index.html:509
+msgid "TXT жүктеу (Брайль Unicode)"
+msgstr "Download TXT (Braille Unicode)"
+
+#: .\core\templates\core\index.html:512
+msgid ""
+"Файл UTF-8 кодтауында сақталды. Брайль дисплейінде немесе арнайы "
+"бағдарламада ашыңыз."
+msgstr ""
+"File saved in UTF-8 encoding. Open on a Braille display or in a dedicated "
+"application."
+
+#: .\core\templates\core\index.html:534
+msgid "Файлыңыз өңделуде"
+msgstr "Your File is Processing"
+
+#: .\core\templates\core\index.html:535
+msgid "Файлыңыз қолжетімді форматқа айналдырылуда."
+msgstr "Your file is being converted to an accessible format."
+
+#: .\core\templates\core\index.html:541
+msgid "Файл өңделуде..."
+msgstr "Processing file..."
+
+#: .\core\templates\core\index.html:549
+msgid "1-қадам: Файл жүктелуде..."
+msgstr "Step 1: Uploading file..."
+
+#: .\core\templates\core\index.html:550
+msgid "Күте тұрыңыз."
+msgstr "Please wait."
+
+#: .\core\templates\core\index.html:559
+msgid "Экран оқырманына дайын"
+msgstr "Screen Reader Ready"
+
+#: .\core\templates\core\index.html:560
+msgid "Тақырыптар навигация үшін қайта құрылымдалуда."
+msgstr "Headings are being restructured for navigation."
+
+#: .\core\templates\core\index.html:568
+msgid "OCR оңтайландыру"
+msgstr "OCR Optimization"
+
+#: .\core\templates\core\index.html:569
+msgid "Суреттерден мәтін танылуда."
+msgstr "Text is being recognized from images."
+
+#: .\core\templates\core\index.html:578
+msgid "Үлкен файлдар бірнеше минут алуы мүмкін. Бетті жаппаңыз."
+msgstr "Large files may take a few minutes. Don't close the page."
+
+#: .\core\templates\core\index.html:588
+msgid "✓ Таңдалды:"
+msgstr "✓ Selected:"
+
+# index.html — shared
+#: .\core\templates\core\index.html:696
+#: .\core\templates\core\speech_to_text.html:273
+msgid "Көшірілді!"
+msgstr "Copied!"
+
+#: .\core\templates\core\index.html:715
+msgid "Файл жүктелуде..."
+msgstr "Uploading file..."
+
+#: .\core\templates\core\index.html:715
+msgid "1-қадам: Файл серверге жіберілуде"
+msgstr "Step 1: Sending file to server"
+
+#: .\core\templates\core\index.html:716
+msgid "Мазмұн талданауда..."
+msgstr "Analyzing content..."
+
+#: .\core\templates\core\index.html:716
+msgid "2-қадам: Файл мазмұны оқылуда"
+msgstr "Step 2: Reading file content"
+
+#: .\core\templates\core\index.html:717
+msgid "Конвертация жасалуда..."
+msgstr "Converting..."
+
+#: .\core\templates\core\index.html:717
+msgid "3-қадам: Формат айналдырылуда"
+msgstr "Step 3: Converting format"
+
+#: .\core\templates\core\index.html:718
+msgid "Аяқталуда..."
+msgstr "Finishing..."
+
+#: .\core\templates\core\index.html:718
+msgid "4-қадам: Нәтиже дайындалуда"
+msgstr "Step 4: Preparing result"
+
+#: .\core\templates\core\index.html:719
+msgid "Дерлік дайын..."
+msgstr "Almost ready..."
+
+#: .\core\templates\core\index.html:719
+msgid "4-қадам: Файл сақталуда"
+msgstr "Step 4: Saving file"
+
+# profile.html
+#: .\core\templates\core\profile.html:10
+msgid "Конвертацияланған барлық материалдарыңыз осында."
+msgstr "All your converted materials are here."
+
+#: .\core\templates\core\profile.html:58
+msgid "Жүктеу"
+msgstr "Download"
+
+#: .\core\templates\core\profile.html:73
+msgid "Көру"
+msgstr "View"
+
+#: .\core\templates\core\profile.html:80
+msgid "Файл жоқ"
+msgstr "No file"
+
+#: .\core\templates\core\profile.html:111
+msgid "Жаңа файл конвертациялау"
+msgstr "Convert New File"
+
+#: .\core\templates\core\profile.html:119
+msgid "Сіз әлі ешбір файл конвертациялаған жоқсыз."
+msgstr "You haven't converted any files yet."
+
+#: .\core\templates\core\profile.html:123
+msgid "Бірінші файлды жүктеу"
+msgstr "Upload First File"
+
+# settings.html
+#: .\core\templates\core\settings.html:3 .\core\templates\core\settings.html:9
+msgid "Қолжетімділік параметрлері"
+msgstr "Accessibility Settings"
+
+#: .\core\templates\core\settings.html:10
+msgid "Жеке қажеттіліктеріңізге сай баптаңыз."
+msgstr "Customize to your personal needs."
+
+#: .\core\templates\core\settings.html:17
+msgid "Мәтін өлшемі"
+msgstr "Text Size"
+
+#: .\core\templates\core\settings.html:19
+msgid "Оқылымдылықты жақсарту үшін шрифт өлшемін реттеңіз."
+msgstr "Adjust font size to improve readability."
+
+#: .\core\templates\core\settings.html:23
+msgid "Кіші"
+msgstr "Small"
+
+#: .\core\templates\core\settings.html:27
+msgid "Әдепкі"
+msgstr "Default"
+
+#: .\core\templates\core\settings.html:40
+msgid "Түс режимі"
+msgstr "Color Mode"
+
+#: .\core\templates\core\settings.html:46
+msgid "Жарық"
+msgstr "Light"
+
+#: .\core\templates\core\settings.html:53
+msgid "Қараңғы"
+msgstr "Dark"
+
+#: .\core\templates\core\settings.html:60
+msgid "Жоғары контраст"
+msgstr "High Contrast"
+
+#: .\core\templates\core\settings.html:75
+msgid "Автоматты оқу"
+msgstr "Auto Read"
+
+#: .\core\templates\core\settings.html:76
+msgid "Курсорды мәтінге апарғанда автоматты дауыстап оқиды."
+msgstr "Automatically reads text aloud when the cursor hovers over it."
+
+#: .\core\templates\core\settings.html:89
+msgid "Әдепкіге қайтару"
+msgstr "Reset to Default"
+
+#: .\core\templates\core\settings.html:92
+msgid "Өзгерістерді сақтау"
+msgstr "Save Changes"
+
+#: .\core\templates\core\settings.html:137
+msgid "Параметрлер сақталды!"
+msgstr "Settings saved!"
+
+# speech_to_text.html — updated/new
+#: .\core\templates\core\speech_to_text.html:14
+msgid "Микрофонға сөйлеңіз — мәтін нақты уақытта шығады."
+msgstr "Speak into the microphone — text appears in real time."
+
+#: .\core\templates\core\speech_to_text.html:22
+msgid "Тіл:"
+msgstr "Language:"
+
+#: .\core\templates\core\speech_to_text.html:67
+msgid "Тоқтату"
+msgstr "Stop"
+
+#: .\core\templates\core\speech_to_text.html:72
+#: .\core\templates\core\speech_to_text.html:122
+msgid "«Бастау» батырмасын басып сөйлеңіз"
+msgstr "Press «Start» and speak"
+
+#: .\core\templates\core\speech_to_text.html:101
+msgid "Мәтін осында нақты уақытта шығады..."
+msgstr "Text will appear here in real time..."
+
+#: .\core\templates\core\speech_to_text.html:121
+msgid "Тыңдап тұр..."
+msgstr "Listening..."
+
+#: .\core\templates\core\speech_to_text.html:123
+msgid "Браузеріңіз дыбыс тануды қолдамайды. Google Chrome қолданыңыз."
+msgstr "Your browser doesn't support speech recognition. Use Google Chrome."
+
+#: .\core\templates\core\speech_to_text.html:124
+msgid "Микрофонға рұқсат берілмеді."
+msgstr "Microphone permission denied."
+
+#: .\core\templates\core\speech_to_text.html:125
+msgid "Жазу аяқталды."
+msgstr "Recording finished."
+
+# login.html
+#: .\core\templates\registration\login.html:13
+msgid "Жүйеге кіру"
+msgstr "Sign In"
+
+#: .\core\templates\registration\login.html:14
+msgid "Платформаны пайдалану үшін кіріңіз"
+msgstr "Sign in to use the platform"
+
+#: .\core\templates\registration\login.html:60
+msgid "Тіркелмеген бе?"
+msgstr "Don't have an account?"
+
+#: .\core\templates\registration\login.html:61
+#: .\core\templates\registration\signup.html:3
+#: .\core\templates\registration\signup.html:13
+#: .\core\templates\registration\signup.html:85
+msgid "Тіркелу"
+msgstr "Register"
+
+# signup.html
+#: .\core\templates\registration\signup.html:14
+msgid "Жаңа аккаунт жасаңыз"
+msgstr "Create a new account"
+
+# signup.html — new fields
+#: .\core\templates\registration\signup.html:22
+msgid "Қолданушы атауы"
+msgstr "Username"
+
+#: .\core\templates\registration\signup.html:26
+msgid "Қолданушы атауын енгізіңіз"
+msgstr "Enter your username"
+
+#: .\core\templates\registration\signup.html:27
+msgid "150 символдан аспауы керек. Тек әріптер, сандар және @/./+/-/_"
+msgstr "150 characters or fewer. Letters, digits and @/./+/-/_ only."
+
+#: .\core\templates\registration\signup.html:35
+msgid "Құпия сөз"
+msgstr "Password"
+
+#: .\core\templates\registration\signup.html:39
+msgid "Құпия сөзді енгізіңіз"
+msgstr "Enter your password"
+
+#: .\core\templates\registration\signup.html:47
+msgid "Құпия сөз талаптары:"
+msgstr "Password requirements:"
+
+#: .\core\templates\registration\signup.html:48
+msgid "Жеке мәліметтеріңізге ұқсамауы керек"
+msgstr "Can't be too similar to your personal information"
+
+#: .\core\templates\registration\signup.html:49
+msgid "Кемінде 8 символ болуы керек"
+msgstr "Must contain at least 8 characters"
+
+#: .\core\templates\registration\signup.html:50
+msgid "Жиі қолданылатын болмауы керек"
+msgstr "Can't be a commonly used password"
+
+#: .\core\templates\registration\signup.html:51
+msgid "Тек сандардан тұрмауы керек"
+msgstr "Can't be entirely numeric"
+
+#: .\core\templates\registration\signup.html:60
+msgid "Құпия сөзді растау"
+msgstr "Confirm Password"
+
+#: .\core\templates\registration\signup.html:64
+msgid "Құпия сөзді қайталаңыз"
+msgstr "Repeat your password"
+
+#: .\core\templates\registration\signup.html:71
+msgid "Растау үшін алдыңғы құпия сөзді қайталаңыз."
+msgstr "Enter the same password as before, for verification."
+
+#: .\core\templates\registration\signup.html:91
+msgid "Аккаунт бар ма?"
+msgstr "Already have an account?"
+
+#~ msgid "Screen readers and tactile braille support for better navigation."
+#~ msgstr "Screen readers and tactile braille support for better navigation."
+
+#~ msgid "Closed captions and sign language interpretation tools."
+#~ msgstr "Closed captions and sign language interpretation tools."
+
+#~ msgid "Unified repository of WCAG compliant educational resources."
+#~ msgstr "Unified repository of WCAG compliant educational resources."
+
+#~ msgid "Аудио жүктеу"
+#~ msgstr "Download Audio"
+
+#~ msgid "Мәтінді көру"
+#~ msgstr "View Text"
+
+#~ msgid "Брайль көру"
+#~ msgstr "View Braille"
+
+#~ msgid "Экран оқырманы"
+#~ msgstr "Screen Reader"
+
+#~ msgid ""
+#~ "Экрандағы барлық элементтер үшін мәтіннен дыбысқа функциясын қосыңыз."
+#~ msgstr "Enable text-to-speech for all elements on screen."
+
+#~ msgid "Дауыспен оқу"
+#~ msgstr "Read Aloud"
+
+#~ msgid "Үстінен өту арқылы оқу"
+#~ msgstr "Hover to Read"
+
+#~ msgid ""
+#~ "Қосылса, кез келген мәтіннің үстінен мышканы апарғанда сол сөз дыбыстап "
+#~ "оқылады."
+#~ msgstr "When enabled, hovering the mouse over any text reads it aloud."
+
+#~ msgid "Белсенді — мәтінге апарып көріңіз"
+#~ msgstr "Active — try hovering over text"
+
+#~ msgid "Қосу"
+#~ msgstr "Enable"
+
+#~ msgid "Мәтін оқу"
+#~ msgstr "Text Reading"
+
+#~ msgid ""
+#~ "Беттегі кез келген мәтінді белгілеңіз — пайда болған батырманы басыңыз, "
+#~ "мәтін дыбыстап оқылады."
+#~ msgstr ""
+#~ "Select any text on the page — press the button that appears, and the text "
+#~ "will be read aloud."
+
+#~ msgid "Оқу"
+#~ msgstr "Read"
+
+#~ msgid ""
+#~ "Осылай батырма шығады. Escape немесе батырманы қайта басу — тоқтатады."
+#~ msgstr ""
+#~ "This is how the button looks. Press Escape or the button again to stop."
+
+#~ msgid "Субтитр параметрлері"
+#~ msgstr "Subtitle Settings"
+
+#~ msgid "Барлық аудио және видео контент үшін субтитрлерді көрсету."
+#~ msgstr "Show subtitles for all audio and video content."
+
+# speech_to_text.html
+#~ msgid "Дыбыстан мәтінге"
+#~ msgstr "Speech to Text"
+
+#~ msgid "Микрофонға сөйлеңіз — мәтін автоматты жазылады."
+#~ msgstr "Speak into the microphone — text is recorded automatically."
+
+#~ msgid "Микрофонды басыңыз"
+#~ msgstr "Click the microphone"
+
+#~ msgid "Браузеріңіз микрофонды қолдамайды. Chrome қолданыңыз."
+#~ msgstr "Your browser doesn't support microphone. Use Chrome."
+
+#~ msgid "Сөйлеп жатырсыз..."
+#~ msgstr "Recording..."
+
+#~ msgid "Жазу аяқталды"
+#~ msgstr "Recording finished"
+
+#~ msgid "✓ Мәтін көшірілді!"
+#~ msgstr "✓ Text copied!"
+
+#~ msgid "Қате:"
+#~ msgstr "Error:"
+
+#~ msgid "Көру қабілеті шектеулілер үшін"
+#~ msgstr "For the Visually Impaired"
+
+#~ msgid ""
+#~ "Экран оқырмандары және TTS технологиялары арқылы навигация жеңілдетілген."
+#~ msgstr "Navigation simplified through screen readers and TTS technologies."
+
+#~ msgid "Есту қабілеті шектеулілер үшін"
+#~ msgstr "For the Hearing Impaired"
+
+#~ msgid "Жабық субтитрлер және ым тілі интерпретация құралдары."
+#~ msgstr "Closed captions and sign language interpretation tools."
+
+#~ msgid "WCAG стандарттарына сәйкес оқу ресурстарының бірыңғай репозиторийі."
+#~ msgstr ""
+#~ "A unified repository of learning resources compliant with WCAG standards."
+
+#~ msgid "Жылдам өңдеу"
+#~ msgstr "Fast Processing"
+
+#~ msgid "Секундтар ішінде дайын"
+#~ msgstr "Ready in seconds"
+
+#~ msgid "Қауіпсіз"
+#~ msgstr "Secure"
+
+#~ msgid "Шифрланған өңдеу"
+#~ msgstr "Encrypted Processing"
+
+#~ msgid "Көп форматты"
+#~ msgstr "Multi-Format"
+
+#~ msgid "Барлық негізгі форматтарды қолдайды"
+#~ msgstr "Supports all major formats"
+
+#~ msgid "Негізгі мүмкіндіктер"
+#~ msgstr "Key Features"
+
+#~ msgid "Инклюзивті оқуға арналған мамандандырылған құралдар."
+#~ msgstr "Specialized tools for inclusive learning."
+
+#~ msgid "Мәтіннен дыбысқа"
+#~ msgstr "Text to Speech"
+
+#~ msgid ""
+#~ "Кез келген оқулық немесе құжатты табиғи дыбысты аудиоға айналдырыңыз."
+#~ msgstr "Convert any textbook or document into natural-sounding audio."
+
+#~ msgid "Дәрістер мен семинарлар үшін нақты уақытта транскрипция."
+#~ msgstr "Real-time transcription for lectures and seminars."
+
+#~ msgid "Субтитр генераторы"
+#~ msgstr "Subtitle Generator"
+
+#~ msgid "Оқу бейнелері үшін бірнеше тілде дәл субтитрлерді автоматты жасаңыз."
+#~ msgstr ""
+#~ "Automatically generate accurate subtitles in multiple languages for "
+#~ "educational videos."
+
+#~ msgid "Қолжетімділік құралдары"
+#~ msgstr "Accessibility Tools"
+
+#~ msgid "Жоғары контраст режимдері, шрифт өлшемі және фокус құралдары."
+#~ msgstr "High contrast modes, font size and focus tools."

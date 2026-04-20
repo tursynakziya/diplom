@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="kk" class="light">
 <head>
@@ -6,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}Accessible Learning Platform{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <script>
     tailwind.config = {
@@ -18,7 +19,7 @@
             "background-light": "#f5f7f8",
             "background-dark": "#0f1923",
           },
-          fontFamily: { "display": ["Lexend", "sans-serif"] },
+          fontFamily: { "display": ["Nunito", "sans-serif"] },
           borderRadius: {
             "DEFAULT": "0.25rem", "lg": "0.5rem",
             "xl": "0.75rem", "full": "9999px"
@@ -28,7 +29,7 @@
     }
   </script>
   <style>
-    body { font-family: 'Lexend', sans-serif; }
+    body { font-family: 'Nunito', sans-serif; }
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       vertical-align: middle;
@@ -37,6 +38,67 @@
       outline: 3px solid #0056b2;
       outline-offset: 2px;
     }
+
+    /* Көру қабілеті нашар режим */
+    body.visual-mode {
+      background: #000 !important;
+      color: #fff !important;
+      font-size: 22px !important;
+      letter-spacing: 0.05em !important;
+      line-height: 1.9 !important;
+    }
+    body.visual-mode * {
+      background-color: #000 !important;
+      color: #fff !important;
+      border-color: #fff !important;
+    }
+    body.visual-mode a,
+    body.visual-mode button {
+      background-color: #ffff00 !important;
+      color: #000 !important;
+      font-size: 20px !important;
+      padding: 12px 20px !important;
+      border: 2px solid #fff !important;
+      border-radius: 8px !important;
+    }
+    body.visual-mode img {
+      filter: contrast(150%) brightness(120%);
+    }
+    body.visual-mode input,
+    body.visual-mode select,
+    body.visual-mode textarea {
+      background-color: #111 !important;
+      color: #fff !important;
+      border: 2px solid #ffff00 !important;
+      font-size: 20px !important;
+    }
+    body.visual-mode header {
+      background-color: #111 !important;
+      border-bottom: 2px solid #ffff00 !important;
+    }
+    body.visual-mode footer {
+      background-color: #111 !important;
+      border-top: 2px solid #ffff00 !important;
+    }
+    body.visual-mode #visualModeBtn {
+      background-color: #ffff00 !important;
+      color: #000 !important;
+    }
+    #visualModeBar {
+      display: none;
+      background: #ffff00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      position: sticky;
+      top: 72px;
+      z-index: 40;
+    }
+    body.visual-mode #visualModeBar {
+      display: block;
+    }
   </style>
   {% block extra_head %}{% endblock %}
 </head>
@@ -44,6 +106,8 @@
 
 <!-- HEADER -->
 <header class="flex items-center justify-between whitespace-nowrap border-b border-primary/10 bg-white dark:bg-slate-900 px-6 md:px-10 lg:px-20 py-4 sticky top-0 z-50 shadow-sm">
+
+  <!-- LOGO -->
   <div class="flex items-center gap-3">
     <div class="size-9 flex items-center justify-center bg-primary text-white rounded-lg">
       <span class="material-symbols-outlined text-xl">auto_stories</span>
@@ -53,31 +117,96 @@
     </h2>
   </div>
 
+  <!-- НАВИГАЦИЯ -->
   <nav class="hidden lg:flex flex-1 justify-center gap-8">
-    <a href="{% url 'home' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'home' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">Басты бет</a>
-    <a href="{% url 'about' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'about' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">Платформа туралы</a>
+    <a href="{% url 'home' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'home' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">
+      {% trans "Басты бет" %}
+    </a>
+    <a href="{% url 'about' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'about' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">
+      {% trans "Платформа туралы" %}
+    </a>
     {% if user.is_authenticated %}
-    <a href="{% url 'profile' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'profile' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">Менің файлдарым</a>
-    <a href="{% url 'settings' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'settings' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">Параметрлер</a>
+    <a href="{% url 'profile' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'profile' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">
+      {% trans "Менің файлдарым" %}
+    </a>
+    <a href="{% url 'speech_to_text' %}" class="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'speech_to_text' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">
+      <span class="material-symbols-outlined text-base">mic</span>
+      {% trans "Дыбыс тану" %}
+    </a>
+    <a href="{% url 'settings' %}" class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors {% if request.resolver_match.url_name == 'settings' %}text-primary border-b-2 border-primary pb-0.5{% endif %}">
+      {% trans "Параметрлер" %}
+    </a>
+    {% if user.is_superuser %}
+    <a href="{% url 'admin_dashboard' %}" class="text-slate-600 text-sm font-semibold hover:text-primary">
+    ⚙️ {% trans "Админ панелі" %}
+    </a>
+    {% endif %}
     {% endif %}
   </nav>
 
+  <!-- ОҢ ЖАҚ: Тіл + Режим + Кіру/Шығу -->
   <div class="flex items-center gap-3">
+
+    <!-- ТІЛ АУЫСТЫРУ -->
+<div class="flex items-center gap-1 text-sm font-bold">
+  <a href="/i18n/setlang/" onclick="setLanguage('kk'); return false;"
+    class="px-2 py-1 rounded transition-colors {% if request.LANGUAGE_CODE == 'kk' %}text-primary border-b-2 border-primary{% else %}text-slate-500 hover:text-primary{% endif %}">
+    KZ
+  </a>
+  <span class="text-slate-300">|</span>
+  <a href="/i18n/setlang/" onclick="setLanguage('ru'); return false;"
+    class="px-2 py-1 rounded transition-colors {% if request.LANGUAGE_CODE == 'ru' %}text-primary border-b-2 border-primary{% else %}text-slate-500 hover:text-primary{% endif %}">
+    RU
+  </a>
+  <span class="text-slate-300">|</span>
+  <a href="/i18n/setlang/" onclick="setLanguage('en'); return false;"
+    class="px-2 py-1 rounded transition-colors {% if request.LANGUAGE_CODE == 'en' %}text-primary border-b-2 border-primary{% else %}text-slate-500 hover:text-primary{% endif %}">
+    EN
+  </a>
+</div>
+
+<!-- Жасырын форма -->
+<form id="langForm" action="{% url 'set_language' %}" method="post" style="display:none;">
+  {% csrf_token %}
+  <input type="hidden" name="language" id="langInput">
+  <input type="hidden" name="next" id="langNext">
+</form>
+
+    <!-- КӨРУ РЕЖИМІ БАТЫРМАСЫ -->
+    <button onclick="toggleVisualMode()" id="visualModeBtn"
+      class="flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-400 text-yellow-900 text-sm font-bold hover:bg-yellow-500 transition-all">
+      <span class="material-symbols-outlined text-lg">visibility</span>
+      <span class="hidden xl:block">{% trans "Көру режимі" %}</span>
+    </button>
+
+    <!-- КІРУ / ШЫҒУ -->
     {% if user.is_authenticated %}
       <span class="hidden sm:block text-sm text-slate-500">{{ user.username }}</span>
-      <a href="{% url 'logout' %}" class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition-all border border-primary/20">
-        Шығу
-      </a>
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition-all border border-primary/20">
+          {% trans "Шығу" %}
+        </button>
+      </form>
     {% else %}
       <a href="{% url 'home' %}" class="hidden sm:flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
-        Файл жүктеу
+        {% trans "Файл жүктеу" %}
       </a>
       <a href="{% url 'login' %}" class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition-all border border-primary/20">
-        Кіру
+        {% trans "Кіру" %}
       </a>
     {% endif %}
   </div>
 </header>
+
+<!-- КӨРУ РЕЖИМІ ХАБАРЛАМАСЫ -->
+<div id="visualModeBar">
+  ♿ {% trans "Көру қабілеті нашар адамдарға арналған режим қосылды" %} —
+  <button onclick="toggleVisualMode()"
+    style="background:transparent;border:none;text-decoration:underline;cursor:pointer;font-weight:bold;color:#000;">
+    {% trans "Өшіру" %}
+  </button>
+</div>
 
 <!-- MAIN CONTENT -->
 <main class="flex-1">
@@ -108,13 +237,173 @@
       <span class="text-slate-700 dark:text-slate-300 font-bold">Accessible Learning Platform</span>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-8">
-      <a class="text-slate-500 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors" href="{% url 'about' %}">Платформа туралы</a>
-      <a class="text-slate-500 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors" href="#">Қолдау</a>
+      <a class="text-slate-500 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors" href="{% url 'about' %}">{% trans "Платформа туралы" %}</a>
+      <a class="text-slate-500 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors" href="#">{% trans "Қолдау" %}</a>
       <a class="text-slate-500 dark:text-slate-400 text-sm font-semibold hover:text-primary transition-colors" href="#">WCAG 2.1</a>
     </div>
     <p class="text-slate-400 text-sm">© 2026 Accessible Learning Platform</p>
   </div>
 </footer>
+
+{% if user.is_authenticated and not user.is_superuser %}
+<!-- ЧАТТЫҢ ИКОНКАСЫ (оң төменгі бұрыш) -->
+<div id="chatWidget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+
+  <!-- Чат терезесі -->
+  <div id="chatPanel" class="hidden w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-primary/10 flex flex-col overflow-hidden" style="max-height:540px;">
+
+    <!-- Тақырып -->
+    <div class="flex items-center justify-between px-4 py-3 bg-primary text-white shrink-0">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-xl">support_agent</span>
+        <span class="font-bold text-sm">{% trans "Қолдау қызметі" %}</span>
+      </div>
+      <button onclick="toggleChat()" class="text-white/80 hover:text-white">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+
+    <!-- Хабарламалар хронологиялық тізімі -->
+    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-2" style="min-height:0;">
+      {% if chat_timeline %}
+        {% for entry in chat_timeline %}
+          {% if entry.side == 'user' %}
+          <!-- Қолданушы хабарламасы — оң жақ -->
+          <div class="flex flex-col items-end gap-0.5">
+            <div class="bg-primary text-white text-sm px-3 py-2 rounded-2xl rounded-tr-sm max-w-[85%]">
+              <p class="font-bold text-xs opacity-70 mb-0.5">{{ entry.subject }}</p>
+              <p>{{ entry.text }}</p>
+            </div>
+            <span class="text-xs text-slate-400 px-1">{{ entry.ts|date:"d.m H:i" }}</span>
+          </div>
+          {% else %}
+          <!-- Админ жауабы — сол жақ -->
+          <div class="flex flex-col items-start gap-0.5">
+            <div class="bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 text-sm px-3 py-2 rounded-2xl rounded-tl-sm max-w-[85%]">
+              <p class="font-bold text-xs text-primary dark:text-blue-400 mb-0.5">{% trans "Админ" %} · {{ entry.subject }}</p>
+              <p>{{ entry.text }}</p>
+            </div>
+            <span class="text-xs text-slate-400 px-1">{{ entry.ts|date:"d.m H:i" }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+      <div class="text-center text-slate-400 text-sm py-8">
+        <span class="material-symbols-outlined text-4xl block mb-2 text-primary/20">chat_bubble</span>
+        {% trans "Сұрақтарыңызды жазыңыз" %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Жіберу формасы -->
+    <div class="border-t border-slate-100 dark:border-slate-800 p-3 shrink-0">
+      <form method="post" action="{% url 'send_message_to_admin' %}" class="flex flex-col gap-2">
+        {% csrf_token %}
+        <input type="text" name="subject" required placeholder="{% trans 'Тақырып...' %}"
+          class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm outline-none focus:border-primary"/>
+        <div class="flex gap-2">
+          <textarea name="message" rows="2" required placeholder="{% trans 'Хабарламаңызды жазыңыз...' %}"
+            class="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm outline-none focus:border-primary resize-none"></textarea>
+          <button type="submit"
+            class="flex items-center justify-center size-10 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shrink-0 self-end">
+            <span class="material-symbols-outlined text-lg">send</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Иконка батырмасы -->
+  <button onclick="toggleChat()" id="chatBtn"
+    class="size-14 bg-primary text-white rounded-full shadow-xl hover:scale-110 transition-transform flex items-center justify-center relative">
+    <span class="material-symbols-outlined text-2xl" id="chatIcon">chat</span>
+    {% if chat_unread_count %}<span id="chatBadge" class="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">{{ chat_unread_count }}</span>{% endif %}
+  </button>
+</div>
+
+<script>
+function toggleChat() {
+  const panel = document.getElementById('chatPanel');
+  const icon = document.getElementById('chatIcon');
+  const badge = document.getElementById('chatBadge');
+  const isOpen = !panel.classList.contains('hidden');
+  panel.classList.toggle('hidden');
+  icon.textContent = isOpen ? 'chat' : 'close';
+  if (!isOpen) {
+    if (badge) badge.style.display = 'none';
+    const msgs = document.getElementById('chatMessages');
+    setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
+  }
+}
+// Бет жүктелгенде чат соңына скролл
+document.addEventListener('DOMContentLoaded', function() {
+  const msgs = document.getElementById('chatMessages');
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+});
+</script>
+{% endif %}
+
+<script>
+function setLanguage(lang) {
+  document.getElementById('langInput').value = lang;
+  // Қазіргі бет жолын тіл префиксінсіз алу
+  let currentPath = window.location.pathname;
+  // /ru/ немесе /en/ префиксін алып тастау
+  currentPath = currentPath.replace(/^\/(ru|en|kk)\//, '/');
+  document.getElementById('langNext').value = currentPath;
+  document.getElementById('langForm').submit();
+}
+function toggleVisualMode() {
+  const body = document.body;
+  const btn = document.getElementById('visualModeBtn');
+  const isActive = body.classList.toggle('visual-mode');
+
+  if (isActive) {
+    btn.innerHTML = `<span class="material-symbols-outlined text-lg">visibility_off</span><span class="hidden xl:block">Қалыпты режим</span>`;
+    localStorage.setItem('visualMode', 'on');
+  } else {
+    btn.innerHTML = `<span class="material-symbols-outlined text-lg">visibility</span><span class="hidden xl:block">Көру режимі</span>`;
+    localStorage.setItem('visualMode', 'off');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('visualMode') === 'on') {
+    toggleVisualMode();
+  }
+});
+
+// ── HOVER TO READ ─────────────────────────────────────────────────
+(function () {
+  const TAGS = new Set(['P','H1','H2','H3','H4','H5','H6','A','BUTTON','LABEL','LI','TD','TH','SPAN','STRONG','EM']);
+  let timer = null;
+
+  function read(text) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = /[әіңғүұқөҺ]/u.test(text) ? 'kk-KZ' : /[а-яА-Я]/u.test(text) ? 'ru-RU' : 'en-US';
+    u.rate = 1.0;
+    window.speechSynthesis.speak(u);
+  }
+
+  document.addEventListener('mouseover', function (e) {
+    if (localStorage.getItem('hoverRead') === 'off') return;
+    const el = e.target;
+    if (!TAGS.has(el.tagName)) return;
+    const text = (el.innerText || '').trim();
+    if (text.length < 2) return;
+    clearTimeout(timer);
+    timer = setTimeout(() => read(text), 500);
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    if (!TAGS.has(e.target.tagName)) return;
+    clearTimeout(timer);
+    window.speechSynthesis.cancel();
+  });
+})();
+
+</script>
 
 {% block extra_js %}{% endblock %}
 </body>

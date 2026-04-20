@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python manage.py shell -c \"from django.contrib.auth.models import User; users = User.objects.all\\(\\).values\\('id','username','email','is_superuser','is_active','date_joined'\\); [print\\(u\\) for u in users]\")",
+      "Bash(python manage.py shell -c \"from django.contrib.auth.models import User; User.objects.get\\(username='akziya_011'\\).delete\\(\\); print\\('Удалён'\\)\")",
+      "Bash(python manage.py compilemessages)",
+      "Bash(python -c ':*)",
+      "Bash(python manage.py compilemessages --ignore=*)",
+      "Bash(msgfmt locale/ru/LC_MESSAGES/django.po -o locale/ru/LC_MESSAGES/django.mo)",
+      "Bash(msgfmt locale/en/LC_MESSAGES/django.po -o locale/en/LC_MESSAGES/django.mo)"
+    ]
+  }
+}

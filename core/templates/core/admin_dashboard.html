@@ -1,0 +1,592 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Админ панелі" %}{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  .stat-card { transition: all 0.2s; }
+  .stat-card:hover { transform: translateY(-2px); }
+  .tab-btn.active { background: #0056b2; color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="px-6 md:px-10 lg:px-20 py-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <div class="size-12 flex items-center justify-center bg-primary text-white rounded-xl">
+          <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+        </div>
+        <div>
+          <h1 class="text-3xl font-black text-slate-900 dark:text-slate-100">{% trans "Админ панелі" %}</h1>
+          <p class="text-slate-500 text-sm">{% trans "Платформаны басқару орталығы" %}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+        <span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+        {% trans "Жүйе жұмыс істеуде" %}
+      </div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="stat-card bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div class="size-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <span class="material-symbols-outlined text-blue-600">group</span>
+          </div>
+          <span class="text-xs text-green-600 font-bold bg-green-100 px-2 py-0.5 rounded-full">+{{ stats.new_users_today }} {% trans "бүгін" %}</span>
+        </div>
+        <p class="text-3xl font-black text-slate-900 dark:text-slate-100">{{ stats.total_users }}</p>
+        <p class="text-sm text-slate-500 mt-1">{% trans "Барлық пайдаланушы" %}</p>
+      </div>
+      <div class="stat-card bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div class="size-10 bg-purple-100 rounded-lg flex items-center justify-center">
+            <span class="material-symbols-outlined text-purple-600">folder</span>
+          </div>
+          <span class="text-xs text-green-600 font-bold bg-green-100 px-2 py-0.5 rounded-full">+{{ stats.files_today }} {% trans "бүгін" %}</span>
+        </div>
+        <p class="text-3xl font-black text-slate-900 dark:text-slate-100">{{ stats.total_files }}</p>
+        <p class="text-sm text-slate-500 mt-1">{% trans "Конвертацияланған файлдар" %}</p>
+      </div>
+      <div class="stat-card bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center">
+            <span class="material-symbols-outlined text-green-600">volume_up</span>
+          </div>
+        </div>
+        <p class="text-3xl font-black text-slate-900 dark:text-slate-100">{{ stats.tts_count }}</p>
+        <p class="text-sm text-slate-500 mt-1">{% trans "TTS конвертациялар" %}</p>
+      </div>
+      <div class="stat-card bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div class="size-10 bg-amber-100 rounded-lg flex items-center justify-center">
+            <span class="material-symbols-outlined text-amber-600">subtitles</span>
+          </div>
+        </div>
+        <p class="text-3xl font-black text-slate-900 dark:text-slate-100">{{ stats.subtitle_count }}</p>
+        <p class="text-sm text-slate-500 mt-1">{% trans "Субтитр конвертациялар" %}</p>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="flex gap-2 mb-6 flex-wrap">
+      <button class="tab-btn active px-4 py-2 rounded-xl text-sm font-bold bg-primary text-white transition-all" onclick="switchTab('users', this)">
+        <span class="material-symbols-outlined text-sm align-middle">group</span> {% trans "Пайдаланушылар" %}
+      </button>
+      <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700 transition-all" onclick="switchTab('stats', this)">
+        <span class="material-symbols-outlined text-sm align-middle">bar_chart</span> {% trans "Статистика" %}
+      </button>
+      <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700 transition-all" onclick="switchTab('files', this)">
+        <span class="material-symbols-outlined text-sm align-middle">folder</span> {% trans "Файлдар" %}
+      </button>
+      <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700 transition-all" onclick="switchTab('notify', this)">
+        <span class="material-symbols-outlined text-sm align-middle">notifications</span> {% trans "Хабарлама" %}
+      </button>
+      <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700 transition-all" onclick="switchTab('settings', this)">
+        <span class="material-symbols-outlined text-sm align-middle">settings</span> {% trans "Параметрлер" %}
+      </button>
+      <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700 transition-all" onclick="switchTab('messages', this)">
+        <span class="material-symbols-outlined text-sm align-middle">forum</span> {% trans "Хабарламалар" %}
+        {% if new_messages_count %}<span class="ml-1 bg-red-500 text-white text-xs rounded-full px-1.5">{{ new_messages_count }}</span>{% endif %}
+      </button>
+    </div>
+
+    {% trans "пайдаланушысын жою?" as del_user_msg %}
+    <!-- TAB 1: ПАЙДАЛАНУШЫЛАР -->
+    <div id="tab-users" class="tab-content active">
+      <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-primary/10 bg-primary/5 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">{% trans "Пайдаланушылар тізімі" %}</h2>
+          <span class="text-sm text-slate-500">{{ stats.total_users }} {% trans "пайдаланушы" %}</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-slate-50 dark:bg-slate-800">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Пайдаланушы" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">Email</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Файлдар" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Тіркелген" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Статус" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Әрекет" %}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              {% for user in users %}
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                      {{ user.username|first|upper }}
+                    </div>
+                    <div>
+                      <p class="font-bold text-sm text-slate-900 dark:text-slate-100">{{ user.username }}</p>
+                      {% if user.is_superuser %}<span class="text-xs text-primary font-bold">{% trans "Админ" %}</span>{% endif %}
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{{ user.email|default:"—" }}</td>
+                <td class="px-6 py-4">
+                  <span class="text-sm font-bold text-primary">{{ user.files.count }}</span>
+                </td>
+                <td class="px-6 py-4 text-sm text-slate-500">{{ user.date_joined|date:"d.m.Y" }}</td>
+                <td class="px-6 py-4">
+                  {% if user.is_active %}
+                    <span class="px-2 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">{% trans "Белсенді" %}</span>
+                  {% else %}
+                    <span class="px-2 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">{% trans "Блокталған" %}</span>
+                  {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                  {% if not user.is_superuser %}
+                  <div class="flex gap-2">
+                    <form method="post" action="{% url 'admin_toggle_user' user.id %}" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit"
+                        class="text-xs px-3 py-1.5 rounded-lg font-bold transition-all
+                        {% if user.is_active %}bg-amber-100 text-amber-700 hover:bg-amber-200{% else %}bg-green-100 text-green-700 hover:bg-green-200{% endif %}">
+                        {% if user.is_active %}{% trans "Блоктау" %}{% else %}{% trans "Белсендіру" %}{% endif %}
+                      </button>
+                    </form>
+                    <form method="post" action="{% url 'admin_delete_user' user.id %}"
+                      onsubmit="return confirm('{{ user.username }} {{ del_user_msg }}')" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="text-xs px-3 py-1.5 rounded-lg font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-all">
+                        {% trans "Жою" %}
+                      </button>
+                    </form>
+                  </div>
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6" class="px-6 py-8 text-center text-slate-400">{% trans "Пайдаланушылар жоқ" %}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: СТАТИСТИКА -->
+    <div id="tab-stats" class="tab-content">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">{% trans "Конвертация түрлері" %}</h3>
+          <canvas id="conversionChart" height="250"></canvas>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">{% trans "Апталық белсенділік" %}</h3>
+          <canvas id="weeklyChart" height="250"></canvas>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6 lg:col-span-2">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">{% trans "Егжей-тегжейлі статистика" %}</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-blue-50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-blue-600">{{ stats.tts_count }}</p>
+              <p class="text-xs text-blue-500 font-bold mt-1">TTS {% trans "Аудио" %}</p>
+            </div>
+            <div class="bg-purple-50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-purple-600">{{ stats.subtitle_count }}</p>
+              <p class="text-xs text-purple-500 font-bold mt-1">{% trans "Субтитрлер" %}</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-green-600">{{ stats.ocr_count }}</p>
+              <p class="text-xs text-green-500 font-bold mt-1">OCR</p>
+            </div>
+            <div class="bg-amber-50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-amber-600">{{ stats.large_text_count }}</p>
+              <p class="text-xs text-amber-500 font-bold mt-1">{% trans "Үлкен мәтін" %}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% trans "Файлды жою?" as del_file_msg %}
+    <!-- TAB 3: ФАЙЛДАР -->
+    <div id="tab-files" class="tab-content">
+      <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-primary/10 bg-primary/5 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">{% trans "Барлық файлдар" %}</h2>
+          <span class="text-sm text-slate-500">{{ stats.total_files }} {% trans "файл" %}</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-slate-50 dark:bg-slate-800">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Файл атауы" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Пайдаланушы" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Түрі" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Жасалған" %}</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase">{% trans "Әрекет" %}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              {% for file in all_files %}
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                      {% if file.conversion_type == 'tts' %}<span class="material-symbols-outlined text-sm">audio_file</span>
+                      {% elif file.conversion_type == 'subtitles' %}<span class="material-symbols-outlined text-sm">subtitles</span>
+                      {% elif file.conversion_type == 'ocr' %}<span class="material-symbols-outlined text-sm">image_search</span>
+                      {% else %}<span class="material-symbols-outlined text-sm">description</span>{% endif %}
+                    </div>
+                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 truncate max-w-[200px]">{{ file.title }}</p>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{{ file.user.username }}</td>
+                <td class="px-6 py-4">
+                  <span class="px-2 py-1 rounded-full text-xs font-bold
+                    {% if file.conversion_type == 'tts' %}bg-blue-100 text-blue-700
+                    {% elif file.conversion_type == 'subtitles' %}bg-purple-100 text-purple-700
+                    {% elif file.conversion_type == 'ocr' %}bg-green-100 text-green-700
+                    {% else %}bg-amber-100 text-amber-700{% endif %}">
+                    {{ file.get_conversion_type_display }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-sm text-slate-500">{{ file.created_at|date:"d.m.Y H:i" }}</td>
+                <td class="px-6 py-4">
+                  <form method="post" action="{% url 'admin_delete_file' file.id %}"
+                    onsubmit="return confirm('{{ del_file_msg }}')" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="text-xs px-3 py-1.5 rounded-lg font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-all">
+                      {% trans "Жою" %}
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="5" class="px-6 py-8 text-center text-slate-400">{% trans "Файлдар жоқ" %}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: ХАБАРЛАМА -->
+    <div id="tab-notify" class="tab-content">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">send</span>
+            {% trans "Хабарлама жіберу" %}
+          </h2>
+          <form method="post" action="{% url 'admin_send_notification' %}" class="flex flex-col gap-4">
+            {% csrf_token %}
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">{% trans "Алушы" %}</label>
+              <select name="recipient" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                <option value="all">{% trans "Барлық пайдаланушылар" %}</option>
+                {% for user in users %}
+                  {% if not user.is_superuser %}
+                  <option value="{{ user.id }}">{{ user.username }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">{% trans "Тақырып" %}</label>
+              <input type="text" name="subject" placeholder="{% trans 'Хабарлама тақырыбы...' %}"
+                class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">{% trans "Хабарлама мәтіні" %}</label>
+              <textarea name="message" rows="5" placeholder="{% trans 'Хабарлама мазмұны...' %}"
+                class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"></textarea>
+            </div>
+            <button type="submit"
+              class="flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white font-bold hover:bg-primary/90 transition-all shadow-lg">
+              <span class="material-symbols-outlined">send</span>
+              {% trans "Жіберу" %}
+            </button>
+          </form>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">inbox</span>
+            {% trans "Жіберілген хабарламалар" %}
+          </h2>
+          <div class="flex flex-col gap-3 max-h-96 overflow-y-auto">
+            {% for notif in notifications %}
+            <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ notif.subject }}</p>
+                <span class="text-xs text-slate-400">{{ notif.created_at|date:"d.m H:i" }}</span>
+              </div>
+              <p class="text-xs text-slate-500">
+                {% trans "Алушы:" %} {% if notif.recipient %}{{ notif.recipient.username }}{% else %}{% trans "Барлығы" %}{% endif %}
+              </p>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{{ notif.message }}</p>
+            </div>
+            {% empty %}
+            <p class="text-slate-400 text-sm text-center py-8">{% trans "Хабарламалар жоқ" %}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: ПАРАМЕТРЛЕР -->
+    <div id="tab-settings" class="tab-content">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">tune</span>
+            {% trans "Жүйе параметрлері" %}
+          </h2>
+          <form method="post" action="{% url 'admin_save_settings' %}" class="flex flex-col gap-5">
+            {% csrf_token %}
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">
+                <span class="material-symbols-outlined text-primary text-sm align-middle">record_voice_over</span>
+                {% trans "TTS Дауысы" %}
+              </label>
+              <select name="tts_voice" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary outline-none">
+                <option value="kk-KZ-AigulNeural" {% if system_settings.tts_voice == 'kk-KZ-AigulNeural' %}selected{% endif %}>
+                  {% trans "Айгүл (Қазақша - Әйел)" %}
+                </option>
+                <option value="kk-KZ-DauletNeural" {% if system_settings.tts_voice == 'kk-KZ-DauletNeural' %}selected{% endif %}>
+                  {% trans "Дәулет (Қазақша - Ер)" %}
+                </option>
+                <option value="ru-RU-SvetlanaNeural" {% if system_settings.tts_voice == 'ru-RU-SvetlanaNeural' %}selected{% endif %}>
+                  {% trans "Светлана (Орысша)" %}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">
+                <span class="material-symbols-outlined text-primary text-sm align-middle">language</span>
+                {% trans "Әдепкі тіл" %}
+              </label>
+              <select name="default_lang" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary outline-none">
+                <option value="kk" {% if system_settings.default_lang == 'kk' %}selected{% endif %}>{% trans "Қазақша" %}</option>
+                <option value="ru" {% if system_settings.default_lang == 'ru' %}selected{% endif %}>{% trans "Орысша" %}</option>
+                <option value="en" {% if system_settings.default_lang == 'en' %}selected{% endif %}>{% trans "Ағылшынша" %}</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">
+                <span class="material-symbols-outlined text-primary text-sm align-middle">psychology</span>
+                {% trans "Whisper моделі" %}
+              </label>
+              <select name="whisper_model" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary outline-none">
+                <option value="tiny" {% if system_settings.whisper_model == 'tiny' %}selected{% endif %}>Tiny ({% trans "Жылдам" %})</option>
+                <option value="base" {% if system_settings.whisper_model == 'base' %}selected{% endif %}>Base ({% trans "Орташа" %}) ★</option>
+                <option value="small" {% if system_settings.whisper_model == 'small' %}selected{% endif %}>Small ({% trans "Дәл" %})</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">
+                <span class="material-symbols-outlined text-primary text-sm align-middle">storage</span>
+                {% trans "Макс. файл өлшемі (МБ)" %}
+              </label>
+              <input type="number" name="max_file_size" value="{{ system_settings.max_file_size|default:100 }}"
+                min="10" max="500"
+                class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm focus:border-primary outline-none"/>
+            </div>
+            <button type="submit"
+              class="flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white font-bold hover:bg-primary/90 transition-all shadow-lg mt-2">
+              <span class="material-symbols-outlined">save</span>
+              {% trans "Сақтау" %}
+            </button>
+          </form>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-6">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">info</span>
+            {% trans "Жүйе ақпараты" %}
+          </h2>
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              <span class="text-sm text-slate-500">{% trans "Django нұсқасы" %}</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ system_info.django_version }}</span>
+            </div>
+            <div class="flex justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              <span class="text-sm text-slate-500">{% trans "Python нұсқасы" %}</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ system_info.python_version }}</span>
+            </div>
+            <div class="flex justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              <span class="text-sm text-slate-500">{% trans "Деректер қоры" %}</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-slate-100">SQLite</span>
+            </div>
+            <div class="flex justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              <span class="text-sm text-slate-500">{% trans "Медиа өлшемі" %}</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ system_info.media_size }}</span>
+            </div>
+            <div class="flex justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              <span class="text-sm text-slate-500">{% trans "TTS дауысы" %}</span>
+              <span class="text-sm font-bold text-primary">{{ system_settings.tts_voice|default:"kk-KZ-AigulNeural" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: ПАЙДАЛАНУШЫ ХАБАРЛАМАЛАРЫ -->
+    <div id="tab-messages" class="tab-content">
+      <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-primary/10 bg-primary/5 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">forum</span>
+            {% trans "Пайдаланушылардан хабарламалар" %}
+          </h2>
+          {% if new_messages_count %}
+          <span class="text-sm font-bold text-white bg-red-500 px-3 py-1 rounded-full">{{ new_messages_count }} {% trans "жаңа" %}</span>
+          {% endif %}
+        </div>
+        <div class="divide-y divide-slate-100 dark:divide-slate-800">
+          {% for msg in user_messages %}
+          <div class="px-6 py-5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm shrink-0">
+                  {{ msg.sender.username|first|upper }}
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <p class="font-bold text-sm text-slate-900 dark:text-slate-100">{{ msg.sender.username }}</p>
+                    <span class="text-xs px-2 py-0.5 rounded-full font-bold
+                      {% if msg.status == 'new' %}bg-blue-100 text-blue-700
+                      {% elif msg.status == 'read' %}bg-slate-100 text-slate-500
+                      {% else %}bg-green-100 text-green-700{% endif %}">
+                      {% if msg.status == 'new' %}{% trans "Жаңа" %}
+                      {% elif msg.status == 'read' %}{% trans "Оқылған" %}
+                      {% else %}{% trans "Жауап берілген" %}{% endif %}
+                    </span>
+                    <span class="text-xs text-slate-400">{{ msg.created_at|date:"d.m.Y H:i" }}</span>
+                  </div>
+                  <p class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">{{ msg.subject }}</p>
+                  <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ msg.message }}</p>
+                </div>
+              </div>
+              <div class="shrink-0 sm:ml-4">
+                {% if msg.status != 'replied' %}
+                <button onclick="toggleReply('reply-{{ msg.id }}')"
+                  class="text-xs px-3 py-1.5 rounded-lg font-bold bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+                  <span class="material-symbols-outlined text-sm align-middle">reply</span> {% trans "Жауап беру" %}
+                </button>
+                {% else %}
+                <span class="text-xs px-2 py-1 rounded-lg font-bold bg-green-100 text-green-700">
+                  <span class="material-symbols-outlined text-sm align-middle">check_circle</span> {% trans "Жауап берілген" %}
+                </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Бұрынғы жауап -->
+            {% if msg.reply %}
+            <div class="mt-3 ml-12 p-3 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-100 dark:border-green-800">
+              <p class="text-xs font-bold text-green-700 dark:text-green-400 mb-1">{% trans "Сіздің жауабыңыз" %} · {{ msg.replied_at|date:"d.m.Y H:i" }}</p>
+              <p class="text-sm text-green-800 dark:text-green-300">{{ msg.reply }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Жауап беру формасы -->
+            {% if msg.status != 'replied' %}
+            <div id="reply-{{ msg.id }}" class="hidden mt-3 ml-12">
+              <form method="post" action="{% url 'admin_reply_message' msg.id %}" class="flex gap-2">
+                {% csrf_token %}
+                <textarea name="reply" rows="2" required placeholder="{% trans 'Жауабыңызды жазыңыз...' %}"
+                  class="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm outline-none focus:border-primary resize-none"></textarea>
+                <button type="submit"
+                  class="flex items-center justify-center size-10 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shrink-0 self-end">
+                  <span class="material-symbols-outlined text-lg">send</span>
+                </button>
+              </form>
+            </div>
+            {% endif %}
+
+          </div>
+          {% empty %}
+          <div class="px-6 py-16 text-center">
+            <span class="material-symbols-outlined text-5xl text-primary/20 mb-3 block">forum</span>
+            <p class="text-slate-400">{% trans "Хабарламалар жоқ" %}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+{{ stats|json_script:"stats-data" }}
+{{ weekly_data|json_script:"weekly-data" }}
+<script>
+function toggleReply(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active', 'bg-primary', 'text-white');
+    b.classList.add('bg-slate-100', 'text-slate-700');
+  });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active', 'bg-primary', 'text-white');
+  btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+  if (name === 'stats') initCharts();
+}
+
+let chartsInit = false;
+function initCharts() {
+  if (chartsInit) return;
+  chartsInit = true;
+
+  const stats = JSON.parse(document.getElementById('stats-data').textContent);
+  const weeklyData = JSON.parse(document.getElementById('weekly-data').textContent);
+
+  new Chart(document.getElementById('conversionChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['TTS {% trans "Аудио" %}', '{% trans "Субтитрлер" %}', 'OCR', '{% trans "Үлкен мәтін" %}'],
+      datasets: [{
+        data: [stats.tts_count, stats.subtitle_count, stats.ocr_count, stats.large_text_count],
+        backgroundColor: ['#0056b2', '#7c3aed', '#16a34a', '#d97706'],
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  new Chart(document.getElementById('weeklyChart'), {
+    type: 'bar',
+    data: {
+      labels: ['{% trans "Дс" %}', '{% trans "Сс" %}', '{% trans "Ср" %}', '{% trans "Бс" %}', '{% trans "Жм" %}', '{% trans "Сб" %}', '{% trans "Жк" %}'],
+      datasets: [{
+        label: '{% trans "Конвертациялар" %}',
+        data: weeklyData,
+        backgroundColor: '#0056b2',
+        borderRadius: 8,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+    }
+  });
+}
+</script>
+{% endblock %}

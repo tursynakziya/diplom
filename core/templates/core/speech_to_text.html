@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Дыбыс тану" %}{% endblock %}
+
+{% block content %}
+<section class="px-6 md:px-10 lg:px-20 py-12">
+  <div class="max-w-3xl mx-auto flex flex-col gap-8">
+
+    <div class="flex flex-col gap-2">
+      <h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+        {% trans "Дыбыс тану" %}
+      </h1>
+      <p class="text-slate-600 dark:text-slate-400 text-lg">
+        {% trans "Микрофонға сөйлеңіз — мәтін нақты уақытта шығады." %}
+      </p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 shadow-sm p-8 flex flex-col gap-6">
+
+      <!-- ТІЛ ТАҢДАУ -->
+      <div class="flex flex-col gap-2">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">{% trans "Тіл:" %}</p>
+        <div class="flex gap-3 flex-wrap">
+          <button onclick="setLang('kk-KZ')" id="lang-kk"
+            class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-bold transition-all">
+            🇰🇿 {% trans "Қазақша" %}
+          </button>
+          <button onclick="setLang('ru-RU')" id="lang-ru"
+            class="px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-bold transition-all">
+            🇷🇺 {% trans "Орысша" %}
+          </button>
+          <button onclick="setLang('en-US')" id="lang-en"
+            class="px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-bold transition-all">
+            🇬🇧 {% trans "Ағылшынша" %}
+          </button>
+        </div>
+      </div>
+
+      <!-- МИКРОФОН -->
+      <div class="flex flex-col items-center gap-5 py-4">
+
+        <!-- ТОЛҚЫН -->
+        <div id="waveContainer" class="hidden items-center gap-1.5 h-10">
+          <div class="w-2 bg-red-500 rounded-full animate-bounce" style="height:10px;animation-delay:0.0s"></div>
+          <div class="w-2 bg-red-500 rounded-full animate-bounce" style="height:20px;animation-delay:0.1s"></div>
+          <div class="w-2 bg-red-500 rounded-full animate-bounce" style="height:30px;animation-delay:0.2s"></div>
+          <div class="w-2 bg-red-500 rounded-full animate-bounce" style="height:20px;animation-delay:0.3s"></div>
+          <div class="w-2 bg-red-500 rounded-full animate-bounce" style="height:10px;animation-delay:0.4s"></div>
+        </div>
+
+        <!-- ТАЙМЕР -->
+        <div id="timerBox" class="hidden items-center gap-2 font-mono font-bold text-xl text-red-500">
+          <span class="size-3 bg-red-500 rounded-full animate-pulse"></span>
+          <span id="timerText">0:00</span>
+        </div>
+
+        <!-- БАТЫРМАЛАР -->
+        <div class="flex gap-4">
+          <button id="startBtn" onclick="startRecording()"
+            class="flex items-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white text-base font-extrabold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all">
+            <span class="material-symbols-outlined text-2xl">mic</span>
+            {% trans "Бастау" %}
+          </button>
+          <button id="stopBtn" onclick="stopRecording()" disabled
+            class="flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 text-base font-extrabold transition-all cursor-not-allowed">
+            <span class="material-symbols-outlined text-2xl">stop</span>
+            {% trans "Тоқтату" %}
+          </button>
+        </div>
+
+        <p id="statusText" class="text-slate-500 dark:text-slate-400 font-medium text-center text-sm">
+          {% trans "«Бастау» батырмасын басып сөйлеңіз" %}
+        </p>
+      </div>
+
+      <!-- НӘТИЖЕ -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <label class="text-sm font-bold text-slate-700 dark:text-slate-300">
+            {% trans "Танылған мәтін:" %}
+          </label>
+          <div class="flex gap-2 flex-wrap">
+            <button onclick="copyText()"
+              class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition-all">
+              <span class="material-symbols-outlined text-sm">content_copy</span>{% trans "Көшіру" %}
+            </button>
+            <button onclick="clearText()"
+              class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm font-bold hover:bg-slate-200 transition-all">
+              <span class="material-symbols-outlined text-sm">delete</span>{% trans "Тазалау" %}
+            </button>
+            <button onclick="downloadText()"
+              class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all">
+              <span class="material-symbols-outlined text-sm">download</span>{% trans "TXT жүктеу" %}
+            </button>
+          </div>
+        </div>
+
+        <!-- Аяқталған мәтін -->
+        <textarea id="finalText" rows="8"
+          class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-slate-900 dark:text-slate-100 text-base leading-relaxed resize-none focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+          placeholder="{% trans 'Мәтін осында нақты уақытта шығады...' %}"></textarea>
+
+        <!-- Аралық (interim) мәтін — сөйлеп тұрғанда -->
+        <div id="interimBox" class="hidden px-4 py-2 rounded-lg bg-primary/5 border border-primary/10 text-slate-500 dark:text-slate-400 text-sm italic min-h-8"></div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <span id="charCount">0 {% trans "символ" %}</span>
+          <span id="wordCount">0 {% trans "сөз" %}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const STR_SYMBOL     = "{% trans 'символ' %}";
+const STR_WORD       = "{% trans 'сөз' %}";
+const STR_LISTENING  = "{% trans 'Тыңдап тұр...' %}";
+const STR_START      = "{% trans '«Бастау» батырмасын басып сөйлеңіз' %}";
+const STR_NO_SUPPORT = "{% trans 'Браузеріңіз дыбыс тануды қолдамайды. Google Chrome қолданыңыз.' %}";
+const STR_NO_MIC     = "{% trans 'Микрофонға рұқсат берілмеді.' %}";
+const STR_DONE       = "{% trans 'Жазу аяқталды.' %}";
+
+let recognition  = null;
+let isRecording  = false;
+let currentLang  = 'kk-KZ';
+let finalBuffer  = '';   // аяқталған сөйлемдер
+let timerInterval = null;
+let timerSec     = 0;
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+  document.getElementById('statusText').textContent = STR_NO_SUPPORT;
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('startBtn').className = document.getElementById('stopBtn').className;
+}
+
+// ──────────── ТІЛ ────────────
+function setLang(lang) {
+  currentLang = lang;
+  const map = {'kk-KZ':'lang-kk','ru-RU':'lang-ru','en-US':'lang-en'};
+  Object.values(map).forEach(id => {
+    document.getElementById(id).className = 'px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-bold transition-all';
+  });
+  document.getElementById(map[lang]).className = 'px-4 py-2 rounded-lg bg-primary text-white text-sm font-bold transition-all';
+  if (isRecording) { stopRecording(); startRecording(); }
+}
+
+// ──────────── ЖАЗУ ────────────
+function startRecording() {
+  if (!SpeechRecognition) return;
+
+  recognition = new SpeechRecognition();
+  recognition.lang = currentLang;
+  recognition.continuous = true;       // үздіксіз тану
+  recognition.interimResults = true;   // сөйлеп тұрғанда аралық нәтиже
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    isRecording = true;
+    setUIRecording();
+    startTimer();
+  };
+
+  recognition.onresult = (event) => {
+    let interim = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        // Аяқталған сөйлем — буферге қос
+        finalBuffer += (finalBuffer ? ' ' : '') + transcript.trim();
+        document.getElementById('finalText').value = finalBuffer;
+        updateCount();
+        document.getElementById('finalText').scrollTop = document.getElementById('finalText').scrollHeight;
+      } else {
+        // Аралық нәтиже — сөйлеп тұрғанда көрсет
+        interim += transcript;
+      }
+    }
+    // Аралық мәтінді бөлек жерде көрсет
+    const box = document.getElementById('interimBox');
+    if (interim) {
+      box.classList.replace('hidden', 'block');
+      box.textContent = interim;
+    } else {
+      box.classList.replace('block', 'hidden');
+      box.textContent = '';
+    }
+  };
+
+  recognition.onerror = (e) => {
+    if (e.error === 'not-allowed') {
+      setStatus(STR_NO_MIC);
+      stopRecording();
+    } else if (e.error === 'no-speech') {
+      // Дыбыс жоқ — жалғастыра бер
+    }
+  };
+
+  // Автоматты тоқтаса — қайта бастау (continuous режим үшін)
+  recognition.onend = () => {
+    if (isRecording) recognition.start();
+  };
+
+  recognition.start();
+}
+
+function stopRecording() {
+  isRecording = false;
+  if (recognition) { recognition.onend = null; recognition.stop(); recognition = null; }
+  stopTimer();
+  document.getElementById('interimBox').classList.replace('block', 'hidden');
+  document.getElementById('interimBox').textContent = '';
+  setUIIdle();
+  setStatus(STR_DONE);
+}
+
+// ──────────── UI ────────────
+function setUIRecording() {
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('startBtn').className = 'flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-300 dark:bg-slate-700 text-slate-400 text-base font-extrabold transition-all cursor-not-allowed';
+  document.getElementById('stopBtn').disabled = false;
+  document.getElementById('stopBtn').className = 'flex items-center gap-2 px-8 py-4 rounded-2xl bg-red-500 text-white text-base font-extrabold shadow-xl shadow-red-500/30 hover:bg-red-600 transition-all';
+  document.getElementById('waveContainer').classList.replace('hidden','flex');
+  document.getElementById('timerBox').classList.replace('hidden','flex');
+  setStatus(STR_LISTENING);
+}
+
+function setUIIdle() {
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('startBtn').className = 'flex items-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white text-base font-extrabold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all';
+  document.getElementById('stopBtn').disabled = true;
+  document.getElementById('stopBtn').className = 'flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 text-base font-extrabold transition-all cursor-not-allowed';
+  document.getElementById('waveContainer').classList.replace('flex','hidden');
+  document.getElementById('timerBox').classList.replace('flex','hidden');
+}
+
+function setStatus(text) {
+  document.getElementById('statusText').textContent = text;
+}
+
+// ──────────── ТАЙМЕР ────────────
+function startTimer() {
+  timerSec = 0;
+  timerInterval = setInterval(() => {
+    timerSec++;
+    const m = Math.floor(timerSec / 60);
+    const s = timerSec % 60;
+    document.getElementById('timerText').textContent = m + ':' + String(s).padStart(2,'0');
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  document.getElementById('timerText').textContent = '0:00';
+}
+
+// ──────────── УТИЛИТТЕР ────────────
+function updateCount() {
+  const t = document.getElementById('finalText').value;
+  document.getElementById('charCount').textContent = t.length + ' ' + STR_SYMBOL;
+  document.getElementById('wordCount').textContent = t.trim().split(/\s+/).filter(w=>w).length + ' ' + STR_WORD;
+}
+
+function copyText() {
+  const t = document.getElementById('finalText').value;
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(() => {
+    setStatus('✅ {% trans "Көшірілді!" %}');
+    setTimeout(() => setStatus(isRecording ? STR_LISTENING : STR_DONE), 2000);
+  });
+}
+
+function clearText() {
+  finalBuffer = '';
+  document.getElementById('finalText').value = '';
+  updateCount();
+}
+
+function downloadText() {
+  const t = document.getElementById('finalText').value;
+  if (!t.trim()) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([t], { type: 'text/plain;charset=utf-8' }));
+  a.download = 'transcript.txt';
+  a.click();
+}
+
+document.getElementById('finalText').addEventListener('input', updateCount);
+</script>
+{% endblock %}

@@ -1,33 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}Қолжетімділік параметрлері{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Қолжетімділік параметрлері" %}{% endblock %}
 
 {% block content %}
 <section class="px-6 md:px-10 lg:px-20 py-12">
   <div class="max-w-3xl mx-auto flex flex-col gap-8">
     <div>
-      <h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tight mb-2">Қолжетімділік параметрлері</h1>
-      <p class="text-slate-600 dark:text-slate-400">Жеке қажеттіліктеріңізге сай баптаңыз.</p>
+      <h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tight mb-2">{% trans "Қолжетімділік параметрлері" %}</h1>
+      <p class="text-slate-600 dark:text-slate-400">{% trans "Жеке қажеттіліктеріңізге сай баптаңыз." %}</p>
     </div>
 
     <!-- TEXT SIZE -->
     <section class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-primary/5">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-symbols-outlined text-primary">format_size</span>
-        <h2 class="text-xl font-bold">Мәтін өлшемі</h2>
+        <h2 class="text-xl font-bold">{% trans "Мәтін өлшемі" %}</h2>
       </div>
-      <p class="text-slate-600 dark:text-slate-400 mb-6">Оқылымдылықты жақсарту үшін шрифт өлшемін реттеңіз.</p>
+      <p class="text-slate-600 dark:text-slate-400 mb-6">{% trans "Оқылымдылықты жақсарту үшін шрифт өлшемін реттеңіз." %}</p>
       <div class="flex flex-wrap gap-4">
         <button onclick="setFontSize('small')" class="flex-1 min-w-[100px] flex flex-col items-center justify-center gap-2 rounded-xl h-24 bg-primary/5 border-2 border-transparent hover:border-primary/30 text-slate-900 dark:text-slate-100 transition-all" id="btn-small">
           <span class="text-sm font-bold">A-</span>
-          <span class="text-xs">Кіші</span>
+          <span class="text-xs">{% trans "Кіші" %}</span>
         </button>
         <button onclick="setFontSize('default')" class="flex-1 min-w-[100px] flex flex-col items-center justify-center gap-2 rounded-xl h-24 bg-primary text-white border-2 border-primary shadow-lg transition-all" id="btn-default">
           <span class="text-lg font-bold">A</span>
-          <span class="text-xs opacity-90">Әдепкі</span>
+          <span class="text-xs opacity-90">{% trans "Әдепкі" %}</span>
         </button>
         <button onclick="setFontSize('large')" class="flex-1 min-w-[100px] flex flex-col items-center justify-center gap-2 rounded-xl h-24 bg-primary/5 border-2 border-transparent hover:border-primary/30 text-slate-900 dark:text-slate-100 transition-all" id="btn-large">
           <span class="text-2xl font-bold">A+</span>
-          <span class="text-xs">Үлкен</span>
+          <span class="text-xs">{% trans "Үлкен" %}</span>
         </button>
       </div>
     </section>
@@ -36,64 +37,47 @@
     <section class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-primary/5">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-symbols-outlined text-primary">palette</span>
-        <h2 class="text-xl font-bold">Түс режимі</h2>
+        <h2 class="text-xl font-bold">{% trans "Түс режимі" %}</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label class="relative flex items-center justify-between p-4 rounded-xl border-2 border-primary/10 cursor-pointer hover:bg-primary/5 transition-colors">
           <div class="flex items-center gap-3">
             <span class="material-symbols-outlined text-slate-400">light_mode</span>
-            <span class="font-medium">Жарық</span>
+            <span class="font-medium">{% trans "Жарық" %}</span>
           </div>
           <input checked name="color-mode" type="radio" class="h-5 w-5 text-primary focus:ring-primary" onchange="setColorMode('light')"/>
         </label>
         <label class="relative flex items-center justify-between p-4 rounded-xl border-2 border-primary/10 cursor-pointer hover:bg-primary/5 transition-colors">
           <div class="flex items-center gap-3">
             <span class="material-symbols-outlined text-slate-400">dark_mode</span>
-            <span class="font-medium">Қараңғы</span>
+            <span class="font-medium">{% trans "Қараңғы" %}</span>
           </div>
           <input name="color-mode" type="radio" class="h-5 w-5 text-primary focus:ring-primary" onchange="setColorMode('dark')"/>
         </label>
         <label class="relative flex items-center justify-between p-4 rounded-xl border-2 border-primary/10 cursor-pointer hover:bg-primary/5 transition-colors">
           <div class="flex items-center gap-3">
             <span class="material-symbols-outlined text-slate-400">contrast</span>
-            <span class="font-medium">Жоғары контраст</span>
+            <span class="font-medium">{% trans "Жоғары контраст" %}</span>
           </div>
           <input name="color-mode" type="radio" class="h-5 w-5 text-primary focus:ring-primary" onchange="setColorMode('high-contrast')"/>
         </label>
       </div>
     </section>
 
-    <!-- SCREEN READER -->
-    <section class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-primary/5">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="material-symbols-outlined text-primary">record_voice_over</span>
-            <h2 class="text-xl font-bold">Экран оқырманы</h2>
-          </div>
-          <p class="text-slate-600 dark:text-slate-400">Экрандағы барлық элементтер үшін мәтіннен дыбысқа функциясын қосыңыз.</p>
-        </div>
-        <button id="ttsBtn" onclick="toggleTTS()" class="flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-transform active:scale-95 shadow-md">
-          <span class="material-symbols-outlined">play_circle</span>
-          Дауыспен оқу
-        </button>
-      </div>
-    </section>
-
-    <!-- SUBTITLES TOGGLE -->
+    <!-- HOVER TO READ TOGGLE -->
     <section class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-primary/5">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
           <div class="bg-primary/10 p-3 rounded-lg">
-            <span class="material-symbols-outlined text-primary text-3xl">closed_caption</span>
+            <span class="material-symbols-outlined text-primary text-3xl">record_voice_over</span>
           </div>
           <div>
-            <h2 class="text-xl font-bold">Субтитр параметрлері</h2>
-            <p class="text-slate-600 dark:text-slate-400">Барлық аудио және видео контент үшін субтитрлерді көрсету.</p>
+            <h2 class="text-xl font-bold">{% trans "Автоматты оқу" %}</h2>
+            <p class="text-slate-600 dark:text-slate-400">{% trans "Курсорды мәтінге апарғанда автоматты дауыстап оқиды." %}</p>
           </div>
         </div>
         <label class="inline-flex items-center cursor-pointer">
-          <input type="checkbox" checked class="sr-only peer" id="subtitleToggle"/>
+          <input type="checkbox" class="sr-only peer" id="hoverReadToggle" onchange="setHoverRead(this.checked)"/>
           <div class="relative w-14 h-8 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
         </label>
       </div>
@@ -102,10 +86,10 @@
     <!-- SAVE BUTTONS -->
     <div class="flex justify-end gap-4 pb-8">
       <button onclick="resetSettings()" class="px-8 py-3 rounded-xl border-2 border-primary/20 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-        Әдепкіге қайтару
+        {% trans "Әдепкіге қайтару" %}
       </button>
       <button onclick="saveSettings()" class="px-10 py-3 rounded-xl bg-primary text-white font-bold shadow-lg hover:bg-primary/90 transition-colors">
-        Өзгерістерді сақтау
+        {% trans "Өзгерістерді сақтау" %}
       </button>
     </div>
   </div>
@@ -114,7 +98,6 @@
 
 {% block extra_js %}
 <script>
-let ttsActive = false;
 
 function setFontSize(size) {
   const sizes = { small: '14px', default: '16px', large: '20px' };
@@ -143,27 +126,15 @@ function setColorMode(mode) {
   localStorage.setItem('colorMode', mode);
 }
 
-function toggleTTS() {
-  ttsActive = !ttsActive;
-  const btn = document.getElementById('ttsBtn');
-  if (ttsActive) {
-    const text = document.body.innerText;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'kk-KZ';
-    window.speechSynthesis.speak(utterance);
-    btn.innerHTML = '<span class="material-symbols-outlined">stop_circle</span> Тоқтату';
-    btn.classList.add('bg-red-600');
-    btn.classList.remove('bg-primary');
-  } else {
-    window.speechSynthesis.cancel();
-    btn.innerHTML = '<span class="material-symbols-outlined">play_circle</span> Дауыспен оқу';
-    btn.classList.remove('bg-red-600');
-    btn.classList.add('bg-primary');
-  }
+
+
+function setHoverRead(enabled) {
+  localStorage.setItem('hoverRead', enabled ? 'on' : 'off');
+  if (!enabled) window.speechSynthesis && window.speechSynthesis.cancel();
 }
 
 function saveSettings() {
-  alert('Параметрлер сақталды!');
+  alert('{% trans "Параметрлер сақталды!" %}');
 }
 
 function resetSettings() {
@@ -173,5 +144,12 @@ function resetSettings() {
   localStorage.clear();
   location.reload();
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.getElementById('hoverReadToggle');
+  if (toggle) {
+    toggle.checked = localStorage.getItem('hoverRead') !== 'off';
+  }
+});
 </script>
 {% endblock %}
