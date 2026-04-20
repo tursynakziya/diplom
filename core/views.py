@@ -1,46 +1,44 @@
 import asyncio
 import edge_tts
 import os
-from faster_whisper import WhisperModel
 
-# small модель — жылдам (mic, audio-text үшін)
+# Whisper модельдері lazy жүктеледі (build кезінде орнатылмайды)
 _whisper_model = None
-# large-v3 модель — дәл (субтитр үшін)
 _whisper_large_model = None
 
 
 def get_whisper_model():
     global _whisper_model
     if _whisper_model is None:
+        try:
+            from faster_whisper import WhisperModel
+        except ImportError:
+            raise ImportError("faster-whisper орнатылмаған. pip install faster-whisper ctranslate2")
         cpu_count = os.cpu_count() or 4
         _whisper_model = WhisperModel(
-            "small",
-            device="cpu",
-            compute_type="int8",
-            cpu_threads=cpu_count,
-            num_workers=2,
+            "small", device="cpu", compute_type="int8",
+            cpu_threads=cpu_count, num_workers=2,
         )
     return _whisper_model
 
 
 def get_whisper_large_model():
-    """medium модель — қазақша субтитрге арналған (large-v3-тен 3x жылдам, дәлдік жақын)"""
     global _whisper_large_model
     if _whisper_large_model is None:
+        try:
+            from faster_whisper import WhisperModel
+        except ImportError:
+            raise ImportError("faster-whisper орнатылмаған. pip install faster-whisper ctranslate2")
         cpu_count = os.cpu_count() or 4
         for model_name in ("medium", "large-v3"):
             try:
                 _whisper_large_model = WhisperModel(
-                    model_name,
-                    device="cpu",
-                    compute_type="int8",
-                    cpu_threads=cpu_count,
-                    num_workers=2,
+                    model_name, device="cpu", compute_type="int8",
+                    cpu_threads=cpu_count, num_workers=2,
                 )
-                print(f"✅ Субтитр моделі жүктелді: {model_name}")
                 break
             except Exception as e:
-                print(f"⚠️ {model_name} жүктелмеді: {e}, келесіге өту...")
+                print(f"⚠️ {model_name} жүктелмеді: {e}")
     return _whisper_large_model
 
 

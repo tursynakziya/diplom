@@ -1,6 +1,5 @@
 Django==5.1.13
 PyMuPDF==1.27.1
-faster-whisper==1.2.1
 edge-tts==7.2.7
 gTTS==2.5.4
 reportlab==4.4.10
