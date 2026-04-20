@@ -887,7 +887,10 @@ def home(request):
 
             elif conversion_type == 'subtitles':
                 subtitle_lang = request.POST.get('subtitle_lang', 'auto')
-                data, error = convert_subtitles(myfile, request.user, language=subtitle_lang)
+                try:
+                    data, error = convert_subtitles(myfile, request.user, language=subtitle_lang)
+                except ImportError:
+                    data, error = None, "Субтитр функциясы бұл серверде қол жетімді емес (faster-whisper орнатылмаған)."
                 if data:
                    result = {'type': 'subtitles', **data}
                 else:
@@ -902,7 +905,10 @@ def home(request):
                     result = {'error': error}
 
             elif conversion_type == 'audio_text':
-                text, file_url, lang, error = convert_audio_to_text(myfile, request.user)
+                try:
+                    text, file_url, lang, error = convert_audio_to_text(myfile, request.user)
+                except ImportError:
+                    text, file_url, lang, error = None, None, None, "Аудио → Мәтін функциясы бұл серверде қол жетімді емес (faster-whisper орнатылмаған)."
                 if text:
                     result = {'type': 'audio_text', 'text': text,
                               'file_url': file_url, 'language': lang}
